@@ -5,11 +5,13 @@ import Footer from './Footer'
 import ScrollProgress from '@/components/ScrollProgress'
 import WhatsAppFab from '@/components/WhatsAppFab'
 import BackToTop from '@/components/BackToTop'
+import SiteBackground from '@/components/SiteBackground'
 
 export default function PublicLayout() {
   const location = useLocation()
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col relative isolate">
+      <SiteBackground />
       <ScrollProgress />
       <Header />
       <main className="flex-1">

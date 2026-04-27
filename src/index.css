@@ -257,12 +257,43 @@
     z-index: -1;
   }
 
+  /* ----- Full-viewport ambient background (used by SiteBackground) ----- */
+  .aurora-full {
+    background:
+      radial-gradient(closest-side at 18% 22%, color-mix(in oklab, var(--grad-1) 55%, transparent), transparent 65%),
+      radial-gradient(closest-side at 82% 38%, color-mix(in oklab, var(--grad-2) 50%, transparent), transparent 65%),
+      radial-gradient(closest-side at 50% 85%, color-mix(in oklab, var(--grad-3) 48%, transparent), transparent 65%);
+    filter: blur(90px);
+    opacity: 0.55;
+    animation: aurora-drift 28s ease-in-out infinite;
+    will-change: transform;
+  }
+  .dark .aurora-full {
+    opacity: 0.45;  /* slightly less in dark mode where it shows more */
+  }
+
+  .sheen-full {
+    background: linear-gradient(
+      115deg,
+      transparent 36%,
+      color-mix(in oklab, var(--primary) 22%, transparent) 50%,
+      transparent 64%
+    );
+    transform: translateX(-110%);
+    opacity: 0.7;
+    animation: sheen-sweep 12s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
+    animation-delay: 2.5s;
+    will-change: transform;
+  }
+
   /* Respect prefers-reduced-motion */
   @media (prefers-reduced-motion: reduce) {
     .aurora::before,
     .sheen::after,
     .alive::before,
     .alive::after,
+    .aurora-full,
+    .sheen-full,
     .blob {
       animation: none !important;
     }
