@@ -9,8 +9,6 @@ import { listServices } from '@/lib/queries'
 
 const icons = { web: Globe, mobile: Smartphone, fullstack: Code2, integration: Wrench, ai: Cpu, default: Layers }
 
-const fadeUp = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } }
-const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.06 } } }
 
 export default function Services() {
   const [services, setServices] = useState(null) // null = loading, [] = loaded empty
@@ -39,8 +37,7 @@ export default function Services() {
           </p>
         </motion.div>
 
-        <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={stagger}
-          className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {services === null ? (
             <div className="col-span-full p-12 flex justify-center">
               <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
@@ -65,10 +62,15 @@ export default function Services() {
                 once in the Supabase SQL Editor — fixes it in 10 seconds.
               </div>
             </div>
-          ) : services.map((s) => {
+          ) : services.map((s, i) => {
             const Icon = icons[s.icon] || icons.default
             return (
-              <motion.div key={s.id} variants={fadeUp}>
+              <motion.div
+                key={s.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.06 }}
+              >
                 <Card className="h-full group hover:border-primary/50 hover:-translate-y-1 transition-all duration-300 shine">
                   <CardContent className="p-6 flex flex-col h-full">
                     <div className="size-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
@@ -90,7 +92,7 @@ export default function Services() {
               </motion.div>
             )
           })}
-        </motion.div>
+        </div>
 
         <div className="alive mt-16 rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/15 via-background to-background p-10 text-center">
           <h2 className="text-2xl md:text-3xl font-bold">Don't see what you need?</h2>

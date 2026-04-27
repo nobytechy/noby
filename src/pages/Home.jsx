@@ -150,11 +150,16 @@ export default function Home() {
               All services <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
-          <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={stagger} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {services.slice(0, 6).map((s) => {
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {services.slice(0, 6).map((s, i) => {
               const Icon = serviceIcons[s.icon] || serviceIcons.default
               return (
-                <motion.div key={s.id} variants={fadeUp}>
+                <motion.div
+                  key={s.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.06 }}
+                >
                   <Card className="h-full group hover:border-primary/50 hover:-translate-y-1 transition-all duration-300 shine">
                     <CardContent className="p-6">
                       <div className="size-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
@@ -167,7 +172,7 @@ export default function Home() {
                 </motion.div>
               )
             })}
-          </motion.div>
+          </div>
         </section>
       )}
 
@@ -187,9 +192,14 @@ export default function Home() {
             No featured projects yet. Add some from the admin panel.
           </div>
         ) : (
-          <motion.div initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }} variants={stagger} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featured.map((p) => (
-              <motion.div key={p.id} variants={fadeUp}>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {featured.map((p, i) => (
+              <motion.div
+                key={p.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.06 }}
+              >
                 <Link to={`/projects/${p.slug}`} className="group block h-full">
                   <Card className="overflow-hidden h-full hover:border-primary/60 hover:-translate-y-1.5 transition-all duration-300 shine">
                     <div className="aspect-video bg-muted overflow-hidden relative">
@@ -219,7 +229,7 @@ export default function Home() {
                 </Link>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         )}
       </section>
 
@@ -237,9 +247,14 @@ export default function Home() {
             <div className="text-sm text-primary font-medium">Client words</div>
             <h2 className="text-3xl md:text-5xl font-bold mt-1">What clients say</h2>
           </div>
-          <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={stagger} className="grid md:grid-cols-3 gap-6">
-            {testimonials.map(t => (
-              <motion.div key={t.id} variants={fadeUp}>
+          <div className="grid md:grid-cols-3 gap-6">
+            {testimonials.map((t, i) => (
+              <motion.div
+                key={t.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.06 }}
+              >
                 <Card className="p-6 h-full hover:border-primary/40 transition-colors">
                   <div className="text-3xl gradient-text leading-none">"</div>
                   <p className="text-sm leading-relaxed">{t.content}</p>
@@ -259,7 +274,7 @@ export default function Home() {
                 </Card>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         </section>
       )}
 
