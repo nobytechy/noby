@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import toast from 'react-hot-toast'
 import { Mail, MapPin, Phone, Send, Clock } from 'lucide-react'
@@ -43,8 +44,27 @@ export default function Contact() {
   })
   const [submitting, setSubmitting] = useState(false)
   const [profile, setProfile] = useState(null)
+  const location = useLocation()
 
   useEffect(() => { getProfile().then(setProfile).catch(() => {}) }, [])
+
+  // Prefill from Brief Assistant or anywhere else routing here with state.prefill
+  useEffect(() => {
+    const pf = location.state?.prefill
+    if (!pf) return
+    setForm(f => ({
+      ...f,
+      message: pf.message ?? f.message,
+      project_type: pf.project_type ?? f.project_type,
+      budget_range: pf.budget_range ?? f.budget_range,
+      timeline: pf.timeline ?? f.timeline,
+      subject: pf.subject ?? f.subject,
+    }))
+    if (pf.message) {
+      // small UX nudge so user knows it was prefilled
+      toast.success('Brief loaded — review and send when ready')
+    }
+  }, [location.state])
 
   const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }))
 

@@ -19,6 +19,7 @@ import SkillsAdmin from '@/admin/SkillsAdmin'
 import TestimonialsAdmin from '@/admin/TestimonialsAdmin'
 import ProfileAdmin from '@/admin/ProfileAdmin'
 import MessagesAdmin from '@/admin/MessagesAdmin'
+import PinnedReposAdmin from '@/admin/PinnedReposAdmin'
 import ProtectedRoute from '@/components/ProtectedRoute'
 
 export default function App() {
@@ -42,6 +43,7 @@ export default function App() {
         <Route path="services" element={<ServicesAdmin />} />
         <Route path="skills" element={<SkillsAdmin />} />
         <Route path="testimonials" element={<TestimonialsAdmin />} />
+        <Route path="repos" element={<PinnedReposAdmin />} />
         <Route path="profile" element={<ProfileAdmin />} />
         <Route path="messages" element={<MessagesAdmin />} />
       </Route>

@@ -8,10 +8,12 @@ import { Badge } from '@/components/ui/Badge'
 import { Card, CardContent } from '@/components/ui/Card'
 import RotatingWords from '@/components/RotatingWords'
 import AnimatedBlobs from '@/components/AnimatedBlobs'
-import Marquee from '@/components/Marquee'
 import ClientLogos from '@/components/ClientLogos'
 import GithubRepos from '@/components/GithubRepos'
-import { getProfile, listProjects, listServices, listSkills, listTestimonials } from '@/lib/queries'
+import TechIconCloud from '@/components/TechIconCloud'
+import AIShowcase from '@/components/AIShowcase'
+import BriefAssistant from '@/components/BriefAssistant'
+import { getProfile, listProjects, listServices, listTestimonials } from '@/lib/queries'
 
 const stats = [
   { value: '7+', label: 'Years experience' },
@@ -35,7 +37,6 @@ export default function Home() {
   const [profile, setProfile] = useState(null)
   const [featured, setFeatured] = useState([])
   const [services, setServices] = useState([])
-  const [skills, setSkills] = useState([])
   const [testimonials, setTestimonials] = useState([])
 
   useEffect(() => {
@@ -43,10 +44,9 @@ export default function Home() {
       getProfile().catch(() => null),
       listProjects({ featuredOnly: true }).catch(() => []),
       listServices().catch(() => []),
-      listSkills().catch(() => []),
       listTestimonials().catch(() => []),
-    ]).then(([p, fp, sv, sk, tt]) => {
-      setProfile(p); setFeatured(fp.slice(0, 3)); setServices(sv); setSkills(sk); setTestimonials(tt.slice(0, 3))
+    ]).then(([p, fp, sv, tt]) => {
+      setProfile(p); setFeatured(fp.slice(0, 3)); setServices(sv); setTestimonials(tt.slice(0, 3))
     })
   }, [])
 
@@ -60,10 +60,6 @@ export default function Home() {
     url: import.meta.env.VITE_SITE_URL,
     sameAs: Object.values(profile.socials || {}).filter(Boolean),
   } : null
-
-  const techList = skills.length
-    ? skills.slice(0, 14).map(s => s.name)
-    : ['PHP', 'Laravel', 'Python', 'Django', 'JavaScript', 'React', 'Vue.js', 'Flutter', 'Node.js', 'MySQL', 'PostgreSQL', 'Tailwind CSS']
 
   return (
     <>
@@ -117,8 +113,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Tech marquee */}
-      <Marquee items={techList} />
+      {/* Tech icon cloud */}
+      <TechIconCloud />
 
       {/* Stats */}
       <section className="container-x py-16">
@@ -226,6 +222,10 @@ export default function Home() {
           </motion.div>
         )}
       </section>
+
+      {/* AI showcase + interactive brief generator */}
+      <AIShowcase />
+      <BriefAssistant />
 
       {/* GitHub pinned repos */}
       <GithubRepos username="nobytechy" />
