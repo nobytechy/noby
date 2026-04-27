@@ -55,8 +55,15 @@ export default function Services() {
               </div>
             </div>
           ) : services.length === 0 ? (
-            <div className="col-span-full rounded-lg border border-dashed border-border p-12 text-center text-muted-foreground">
-              No services yet. Add some from the admin panel.
+            <div className="col-span-full rounded-lg border border-dashed border-border p-10 text-center text-muted-foreground">
+              <div className="font-semibold text-foreground">No services to show</div>
+              <div className="mt-2 text-sm max-w-md mx-auto">
+                If you've added services in the admin panel and they appear there
+                but not here, your <code>services</code> table is missing its
+                public-read RLS policy. Run{' '}
+                <code>supabase/diagnostics/rebuild_public_read_policies.sql</code>{' '}
+                once in the Supabase SQL Editor — fixes it in 10 seconds.
+              </div>
             </div>
           ) : services.map((s) => {
             const Icon = icons[s.icon] || icons.default
