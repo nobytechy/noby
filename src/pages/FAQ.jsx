@@ -111,7 +111,7 @@ export default function FAQ() {
           })}
         </div>
 
-        <div className="mt-16 rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/15 via-background to-background p-10 text-center">
+        <div className="alive mt-16 rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/15 via-background to-background p-10 text-center">
           <h2 className="text-2xl md:text-3xl font-bold">Still got questions?</h2>
           <p className="mt-3 text-muted-foreground">Drop me a message — I respond within 24 hours.</p>
           <Button asChild size="lg" className="mt-6 glow shine">

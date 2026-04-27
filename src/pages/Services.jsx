@@ -63,7 +63,7 @@ export default function Services() {
           })}
         </motion.div>
 
-        <div className="mt-16 rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/15 via-background to-background p-10 text-center">
+        <div className="alive mt-16 rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/15 via-background to-background p-10 text-center">
           <h2 className="text-2xl md:text-3xl font-bold">Don't see what you need?</h2>
           <p className="mt-3 text-muted-foreground">If your project doesn't fit a single service, let's talk. Most engagements are custom.</p>
           <div className="mt-6 flex flex-wrap gap-3 justify-center">

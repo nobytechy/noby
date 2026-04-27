@@ -109,7 +109,7 @@ export default function Process() {
         </div>
 
         {/* CTA */}
-        <div className="mt-16 rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/15 via-background to-background p-10 md:p-14 text-center">
+        <div className="alive mt-16 rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/15 via-background to-background p-10 md:p-14 text-center">
           <h2 className="text-2xl md:text-4xl font-bold">Ready to talk?</h2>
           <p className="mt-3 text-muted-foreground max-w-xl mx-auto">
             The discovery call is free, no obligation. If we're not a fit I'll tell you and

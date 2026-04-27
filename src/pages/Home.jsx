@@ -269,7 +269,7 @@ export default function Home() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="relative overflow-hidden rounded-3xl border border-primary/30 bg-gradient-to-br from-primary/15 via-background to-background p-10 md:p-16 text-center"
+          className="alive relative rounded-3xl border border-primary/30 bg-gradient-to-br from-primary/15 via-background to-background p-10 md:p-16 text-center"
         >
           <div aria-hidden className="absolute inset-0 -z-10 grid-bg opacity-50" />
           <Rocket className="mx-auto size-12 text-primary" />
