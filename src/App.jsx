@@ -8,6 +8,8 @@ import ProjectDetail from '@/pages/ProjectDetail'
 import Contact from '@/pages/Contact'
 import Process from '@/pages/Process'
 import FAQ from '@/pages/FAQ'
+import Products from '@/pages/Products'
+import ProductDetail from '@/pages/ProductDetail'
 import NotFound from '@/pages/NotFound'
 
 import Login from '@/admin/Login'
@@ -20,6 +22,7 @@ import TestimonialsAdmin from '@/admin/TestimonialsAdmin'
 import ProfileAdmin from '@/admin/ProfileAdmin'
 import MessagesAdmin from '@/admin/MessagesAdmin'
 import PinnedReposAdmin from '@/admin/PinnedReposAdmin'
+import ProductsAdmin from '@/admin/ProductsAdmin'
 import ProtectedRoute from '@/components/ProtectedRoute'
 
 export default function App() {
@@ -31,6 +34,8 @@ export default function App() {
         <Route path="services" element={<Services />} />
         <Route path="projects" element={<Projects />} />
         <Route path="projects/:slug" element={<ProjectDetail />} />
+        <Route path="products" element={<Products />} />
+        <Route path="products/:slug" element={<ProductDetail />} />
         <Route path="process" element={<Process />} />
         <Route path="faq" element={<FAQ />} />
         <Route path="contact" element={<Contact />} />
@@ -43,6 +48,7 @@ export default function App() {
         <Route path="services" element={<ServicesAdmin />} />
         <Route path="skills" element={<SkillsAdmin />} />
         <Route path="testimonials" element={<TestimonialsAdmin />} />
+        <Route path="products" element={<ProductsAdmin />} />
         <Route path="repos" element={<PinnedReposAdmin />} />
         <Route path="profile" element={<ProfileAdmin />} />
         <Route path="messages" element={<MessagesAdmin />} />

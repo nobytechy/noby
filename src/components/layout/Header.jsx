@@ -9,6 +9,7 @@ import Logo from '@/components/Logo'
 const links = [
   { to: '/', label: 'Home' },
   { to: '/services', label: 'Services' },
+  { to: '/products', label: 'Products' },
   { to: '/projects', label: 'Projects' },
   { to: '/process', label: 'Process' },
   { to: '/about', label: 'About' },

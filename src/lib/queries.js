@@ -103,6 +103,26 @@ export async function listTestimonials() {
   })
 }
 
+export async function listProducts({ featuredOnly = false } = {}) {
+  const key = featuredOnly ? 'products:featured' : 'products:all'
+  return cachedFetch(key, async () => {
+    let q = supabase.from('products').select('*').eq('is_published', true)
+      .order('sort_order').order('created_at', { ascending: false })
+    if (featuredOnly) q = q.eq('featured', true)
+    const { data, error } = await q
+    if (error) throw error
+    return data ?? []
+  })
+}
+
+export async function getProductBySlug(slug) {
+  return cachedFetch(`product:${slug}`, async () => {
+    const { data, error } = await supabase.from('products').select('*').eq('slug', slug).single()
+    if (error) throw error
+    return data
+  })
+}
+
 // ----------------------------------------------------------------------------
 // Writes (no caching — caching writes would mask failures)
 // ----------------------------------------------------------------------------

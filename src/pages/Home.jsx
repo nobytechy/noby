@@ -13,7 +13,7 @@ import GithubRepos from '@/components/GithubRepos'
 import TechIconCloud from '@/components/TechIconCloud'
 import AIShowcase from '@/components/AIShowcase'
 import BriefAssistant from '@/components/BriefAssistant'
-import { getProfile, listProjects, listServices, listTestimonials } from '@/lib/queries'
+import { getProfile, listProjects, listServices, listTestimonials, listProducts } from '@/lib/queries'
 
 const stats = [
   { value: '7+', label: 'Years experience' },
@@ -38,6 +38,7 @@ export default function Home() {
   const [featured, setFeatured] = useState([])
   const [services, setServices] = useState([])
   const [testimonials, setTestimonials] = useState([])
+  const [featuredProducts, setFeaturedProducts] = useState([])
 
   useEffect(() => {
     Promise.all([
@@ -45,8 +46,10 @@ export default function Home() {
       listProjects({ featuredOnly: true }).catch(() => []),
       listServices().catch(() => []),
       listTestimonials().catch(() => []),
-    ]).then(([p, fp, sv, tt]) => {
+      listProducts({ featuredOnly: true }).catch(() => []),
+    ]).then(([p, fp, sv, tt, fpd]) => {
       setProfile(p); setFeatured(fp.slice(0, 3)); setServices(sv); setTestimonials(tt.slice(0, 3))
+      setFeaturedProducts(fpd.slice(0, 3))
     })
   }, [])
 
@@ -232,6 +235,64 @@ export default function Home() {
           </div>
         )}
       </section>
+
+      {/* Featured products */}
+      {featuredProducts.length > 0 && (
+        <section className="container-x py-20">
+          <div className="flex items-end justify-between mb-10">
+            <div>
+              <div className="text-sm text-primary font-medium">Ready to ship</div>
+              <h2 className="text-3xl md:text-5xl font-bold mt-1">Pre-built systems for sale</h2>
+              <p className="mt-2 text-muted-foreground max-w-xl">Skip the build. Buy a tested system, deploy in days, own the source forever.</p>
+            </div>
+            <Link to="/products" className="text-sm text-muted-foreground hover:text-primary hidden md:inline-flex items-center gap-1 group">
+              All products <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
+            </Link>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {featuredProducts.map((p, i) => (
+              <motion.div
+                key={p.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.06 }}
+              >
+                <Link to={`/products/${p.slug}`} className="group block h-full">
+                  <Card className="overflow-hidden h-full hover:border-primary/60 hover:-translate-y-1.5 transition-all duration-300 shine">
+                    <div className="aspect-video bg-muted overflow-hidden relative">
+                      {p.cover_image_url ? (
+                        <img src={p.cover_image_url} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-muted-foreground bg-gradient-to-br from-primary/5 to-transparent">
+                          <Code2 size={36} />
+                        </div>
+                      )}
+                      {p.category && (
+                        <div className="absolute top-3 left-3">
+                          <Badge className="bg-background/90 text-foreground border border-border">{p.category}</Badge>
+                        </div>
+                      )}
+                    </div>
+                    <CardContent className="p-5">
+                      <h3 className="text-lg font-semibold group-hover:text-primary transition-colors">{p.title}</h3>
+                      <p className="mt-2 text-sm text-muted-foreground line-clamp-2">{p.short_description}</p>
+                      <div className="mt-4 pt-3 border-t border-border flex items-center justify-between">
+                        <div className="text-xl font-bold gradient-text">
+                          ${Number(p.price ?? 0).toLocaleString()}
+                          <span className="text-xs font-medium text-muted-foreground ml-1">{p.currency || 'USD'}</span>
+                        </div>
+                        <span className="text-sm text-primary inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                          View <ArrowRight size={14} />
+                        </span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* AI showcase + interactive brief generator */}
       <AIShowcase />
