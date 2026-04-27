@@ -3,6 +3,7 @@ import { Mail } from 'lucide-react'
 import { GithubIcon, LinkedinIcon, TwitterIcon } from '@/components/BrandIcons'
 import { useEffect, useState } from 'react'
 import { getProfile } from '@/lib/queries'
+import Logo from '@/components/Logo'
 
 export default function Footer() {
   const [profile, setProfile] = useState(null)
@@ -14,10 +15,8 @@ export default function Footer() {
     <footer className="mt-24 border-t border-border">
       <div className="container-x py-12 flex flex-col md:flex-row gap-8 justify-between">
         <div className="max-w-md">
-          <div className="text-lg font-bold">
-            <span className="gradient-text">noby</span><span>.dev</span>
-          </div>
-          <p className="mt-3 text-sm text-muted-foreground">
+          <Logo size="lg" />
+          <p className="mt-4 text-sm text-muted-foreground">
             {profile?.tagline || 'Full-stack developer building modern web applications for direct clients.'}
           </p>
         </div>

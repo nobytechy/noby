@@ -3,6 +3,7 @@ import { LayoutDashboard, FolderGit2, Wrench, Sparkles, Users, Mail, User, LogOu
 import toast from 'react-hot-toast'
 import { useAuth } from '@/context/AuthContext'
 import { cn } from '@/lib/utils'
+import Logo from '@/components/Logo'
 
 const links = [
   { to: '/admin', label: 'Dashboard', icon: LayoutDashboard, end: true },
@@ -28,10 +29,8 @@ export default function AdminLayout() {
     <div className="min-h-screen flex">
       <aside className="w-64 border-r border-border bg-card hidden md:flex flex-col">
         <div className="p-6 border-b border-border">
-          <Link to="/" className="text-lg font-bold">
-            <span className="gradient-text">noby</span><span>.dev</span>
-          </Link>
-          <div className="text-xs text-muted-foreground mt-1">Admin Panel</div>
+          <Link to="/" aria-label="Noby — home"><Logo size="md" /></Link>
+          <div className="text-xs text-muted-foreground mt-2">Admin Panel</div>
         </div>
         <nav className="flex-1 p-3 space-y-0.5">
           {links.map(l => (
@@ -61,9 +60,7 @@ export default function AdminLayout() {
 
       <main className="flex-1 min-w-0">
         <header className="md:hidden border-b border-border p-4 flex items-center justify-between">
-          <Link to="/admin" className="text-lg font-bold">
-            <span className="gradient-text">noby</span><span>.dev</span>
-          </Link>
+          <Link to="/admin" aria-label="Noby admin"><Logo size="sm" /></Link>
           <button onClick={handleSignOut} className="text-sm text-muted-foreground"><LogOut size={16} /></button>
         </header>
         <div className="md:hidden border-b border-border overflow-x-auto">

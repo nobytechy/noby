@@ -4,6 +4,7 @@ import { Menu, X, Moon, Sun } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from '@/context/ThemeContext'
 import { cn } from '@/lib/utils'
+import Logo from '@/components/Logo'
 
 const links = [
   { to: '/', label: 'Home' },
@@ -20,9 +21,8 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border glass">
       <div className="container-x flex h-16 items-center justify-between">
-        <Link to="/" className="text-lg font-bold tracking-tight">
-          <span className="gradient-text">noby</span>
-          <span className="text-foreground">.dev</span>
+        <Link to="/" aria-label="Noby — home" className="group">
+          <Logo size="md" className="transition-transform duration-300 group-hover:-rotate-3" />
         </Link>
 
         <nav className="hidden md:flex items-center gap-1">
