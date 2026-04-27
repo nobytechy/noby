@@ -9,8 +9,8 @@ import { Card, CardContent } from '@/components/ui/Card'
 import RotatingWords from '@/components/RotatingWords'
 import AnimatedBlobs from '@/components/AnimatedBlobs'
 import ClientLogos from '@/components/ClientLogos'
-import GithubRepos from '@/components/GithubRepos'
 import TechIconCloud from '@/components/TechIconCloud'
+import ProductsBanner from '@/components/ProductsBanner'
 import AIShowcase from '@/components/AIShowcase'
 import BriefAssistant from '@/components/BriefAssistant'
 import { getProfile, listProjects, listServices, listTestimonials, listProducts } from '@/lib/queries'
@@ -67,6 +67,7 @@ export default function Home() {
   return (
     <>
       <SEO path="/" jsonLd={personJsonLd} />
+      <ProductsBanner />
 
       {/* Hero */}
       <section className="relative">
@@ -297,9 +298,6 @@ export default function Home() {
       {/* AI showcase + interactive brief generator */}
       <AIShowcase />
       <BriefAssistant />
-
-      {/* GitHub pinned repos */}
-      <GithubRepos username="nobytechy" />
 
       {/* Testimonials */}
       {testimonials.length > 0 && (
