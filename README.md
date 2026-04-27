@@ -44,16 +44,36 @@ This produces `dist/` containing static HTML + assets. Includes `.htaccess`, `ro
 
 ## Deploy to cPanel (noby.aizim.co.zw)
 
-1. In cPanel → **Subdomains** → create `noby` under `aizim.co.zw`. cPanel will create a folder like `public_html/noby/`.
-2. Upload the **contents** of your local `dist/` folder (not the folder itself) to `public_html/noby/`. Use cPanel File Manager or FTP.
-3. Make sure `.htaccess` made it through. Visit https://noby.aizim.co.zw — done.
+One-command deploy via SSH:
 
-### Optional: GitHub Actions auto-deploy via FTP
-After the first manual deploy works, add a workflow at `.github/workflows/deploy.yml` that builds and FTP-uploads on every push. You'd add these GitHub secrets:
-- `FTP_HOST`, `FTP_USER`, `FTP_PASSWORD`, `FTP_REMOTE_DIR` (e.g. `/public_html/noby/`)
-- `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, `VITE_SITE_URL`
+```bash
+npm run deploy
+```
 
-(Workflow not included by default — ask before enabling so we can confirm credential handling.)
+Builds locally, then `tar | ssh` streams `dist/` contents into `public_html/noby/`
+on the cPanel server. Smoke-tests https://noby.aizim.co.zw afterwards.
+
+### Prerequisites (one-time)
+The script uses an SSH host alias `aizim`. Add this to `~/.ssh/config`:
+
+```
+Host aizim
+  HostName ssh.us.stackcp.com
+  Port 22
+  User aizim.co.zw
+  IdentityFile ~/.ssh/aizim_cpanel
+  IdentitiesOnly yes
+  StrictHostKeyChecking accept-new
+```
+
+…and place the matching private key at `~/.ssh/aizim_cpanel` (chmod 600).
+Test once with `ssh aizim "pwd"` — should print `/home/sites/...`.
+
+### Manual deploy (no SSH)
+If SSH is unavailable, build with `npm run build` and upload the contents of
+`dist/` to `public_html/noby/` via cPanel File Manager — make sure `.htaccess`
+is included for SPA routing to work on deep links like `/services` or
+`/products/foo`.
 
 ## Admin panel
 
