@@ -1,17 +1,20 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import toast from 'react-hot-toast'
-import { Mail, MapPin, Send } from 'lucide-react'
+import { Mail, MapPin, Phone, Send } from 'lucide-react'
 import SEO from '@/components/SEO'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { Textarea } from '@/components/ui/Textarea'
 import { Label } from '@/components/ui/Label'
-import { submitContact } from '@/lib/queries'
+import { submitContact, getProfile } from '@/lib/queries'
 
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
   const [submitting, setSubmitting] = useState(false)
+  const [profile, setProfile] = useState(null)
+
+  useEffect(() => { getProfile().then(setProfile).catch(() => {}) }, [])
 
   const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }))
 
@@ -47,19 +50,31 @@ export default function Contact() {
         </motion.div>
 
         <div className="mt-12 grid md:grid-cols-3 gap-12">
-          <div className="md:col-span-1 space-y-4 text-sm">
+          <div className="md:col-span-1 space-y-5 text-sm">
             <div className="flex items-start gap-3">
               <Mail size={18} className="mt-0.5 text-primary" />
               <div>
                 <div className="font-semibold">Email</div>
-                <a href="mailto:nobytechy@gmail.com" className="text-muted-foreground hover:text-foreground">nobytechy@gmail.com</a>
+                <a href={`mailto:${profile?.email || 'nobytechy@gmail.com'}`} className="text-muted-foreground hover:text-foreground">
+                  {profile?.email || 'nobytechy@gmail.com'}
+                </a>
+                <div className="text-xs text-muted-foreground mt-0.5">Response within 24 hours</div>
               </div>
             </div>
+            {profile?.phone && (
+              <div className="flex items-start gap-3">
+                <Phone size={18} className="mt-0.5 text-primary" />
+                <div>
+                  <div className="font-semibold">Phone / WhatsApp</div>
+                  <a href={`tel:${profile.phone.replace(/\s/g,'')}`} className="text-muted-foreground hover:text-foreground">{profile.phone}</a>
+                </div>
+              </div>
+            )}
             <div className="flex items-start gap-3">
               <MapPin size={18} className="mt-0.5 text-primary" />
               <div>
                 <div className="font-semibold">Location</div>
-                <div className="text-muted-foreground">Zimbabwe — available worldwide</div>
+                <div className="text-muted-foreground">{profile?.location || 'Harare, Zimbabwe — remote worldwide'}</div>
               </div>
             </div>
           </div>
