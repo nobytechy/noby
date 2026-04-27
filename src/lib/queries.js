@@ -1,27 +1,114 @@
 import { supabase } from './supabase'
 
-export async function getProfile() {
-  const { data, error } = await supabase.from('profile').select('*').limit(1).single()
-  if (error && error.code !== 'PGRST116') throw error
-  return data
+// ============================================================================
+// cachedFetch — robustness wrapper for read queries
+// 1. Tries the fetch
+// 2. On failure, retries once after a short delay
+// 3. On final failure, returns the last successful result from localStorage
+//    if available — so brief network blips never blank the page
+// 4. On success, updates localStorage cache
+// Cached values persist across reloads/sessions.
+// ============================================================================
+const CACHE_PREFIX = 'noby:cache:'
+const RETRY_DELAY_MS = 600
+
+async function cachedFetch(key, fetcher) {
+  const cacheKey = CACHE_PREFIX + key
+  const readCache = () => {
+    try {
+      const raw = localStorage.getItem(cacheKey)
+      if (!raw) return undefined
+      const parsed = JSON.parse(raw)
+      return parsed?.value
+    } catch { return undefined }
+  }
+  const writeCache = (value) => {
+    try { localStorage.setItem(cacheKey, JSON.stringify({ value, savedAt: Date.now() })) } catch {}
+  }
+
+  let lastErr
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const fresh = await fetcher()
+      writeCache(fresh)
+      return fresh
+    } catch (err) {
+      lastErr = err
+      if (attempt === 0) {
+        await new Promise(r => setTimeout(r, RETRY_DELAY_MS))
+      }
+    }
+  }
+  // Both attempts failed — fall back to cache if we have one
+  const cached = readCache()
+  if (cached !== undefined) {
+    console.warn(`[query:${key}] using cached value after fetch failed:`, lastErr?.message || lastErr)
+    return cached
+  }
+  throw lastErr
 }
 
-export async function updateProfile(id, patch) {
-  const { data, error } = await supabase.from('profile').update(patch).eq('id', id).select().single()
-  if (error) throw error
-  return data
+// ----------------------------------------------------------------------------
+// Reads (wrapped with cachedFetch for resilience)
+// ----------------------------------------------------------------------------
+
+export async function getProfile() {
+  return cachedFetch('profile', async () => {
+    const { data, error } = await supabase.from('profile').select('*').limit(1).single()
+    if (error && error.code !== 'PGRST116') throw error
+    return data
+  })
 }
 
 export async function listProjects({ featuredOnly = false } = {}) {
-  let q = supabase.from('projects').select('*').order('sort_order').order('created_at', { ascending: false })
-  if (featuredOnly) q = q.eq('featured', true)
-  const { data, error } = await q
-  if (error) throw error
-  return data ?? []
+  const key = featuredOnly ? 'projects:featured' : 'projects:all'
+  return cachedFetch(key, async () => {
+    let q = supabase.from('projects').select('*').order('sort_order').order('created_at', { ascending: false })
+    if (featuredOnly) q = q.eq('featured', true)
+    const { data, error } = await q
+    if (error) throw error
+    return data ?? []
+  })
 }
 
 export async function getProjectBySlug(slug) {
-  const { data, error } = await supabase.from('projects').select('*').eq('slug', slug).single()
+  return cachedFetch(`project:${slug}`, async () => {
+    const { data, error } = await supabase.from('projects').select('*').eq('slug', slug).single()
+    if (error) throw error
+    return data
+  })
+}
+
+export async function listServices() {
+  return cachedFetch('services', async () => {
+    const { data, error } = await supabase.from('services').select('*').order('sort_order')
+    if (error) throw error
+    return data ?? []
+  })
+}
+
+export async function listSkills() {
+  return cachedFetch('skills', async () => {
+    const { data, error } = await supabase.from('skills').select('*').order('sort_order')
+    if (error) throw error
+    return data ?? []
+  })
+}
+
+export async function listTestimonials() {
+  return cachedFetch('testimonials', async () => {
+    const { data, error } = await supabase.from('testimonials').select('*').order('sort_order')
+    if (error) throw error
+    return data ?? []
+  })
+}
+
+// ----------------------------------------------------------------------------
+// Writes (no caching — caching writes would mask failures)
+// ----------------------------------------------------------------------------
+
+export async function updateProfile(id, patch) {
+  const { data, error } = await supabase.from('profile').update(patch).eq('id', id).select().single()
   if (error) throw error
   return data
 }
@@ -41,24 +128,6 @@ export async function updateProject(id, patch) {
 export async function deleteProject(id) {
   const { error } = await supabase.from('projects').delete().eq('id', id)
   if (error) throw error
-}
-
-export async function listServices() {
-  const { data, error } = await supabase.from('services').select('*').order('sort_order')
-  if (error) throw error
-  return data ?? []
-}
-
-export async function listSkills() {
-  const { data, error } = await supabase.from('skills').select('*').order('sort_order')
-  if (error) throw error
-  return data ?? []
-}
-
-export async function listTestimonials() {
-  const { data, error } = await supabase.from('testimonials').select('*').order('sort_order')
-  if (error) throw error
-  return data ?? []
 }
 
 export async function submitContact(payload) {
@@ -82,7 +151,8 @@ export async function deleteMessage(id) {
   if (error) throw error
 }
 
-// Generic CRUD helpers for services/skills/testimonials
+// Generic CRUD helpers for admin pages (services/skills/testimonials/repos).
+// Note: list() does NOT use cachedFetch — admin needs fresh data each time.
 export const crud = (table) => ({
   list: async () => {
     const { data, error } = await supabase.from(table).select('*').order('sort_order')
@@ -105,7 +175,10 @@ export const crud = (table) => ({
   },
 })
 
+// ----------------------------------------------------------------------------
 // Storage helpers
+// ----------------------------------------------------------------------------
+
 export async function uploadImage(file, folder = 'projects') {
   const ext = file.name.split('.').pop()
   const filename = `${folder}/${crypto.randomUUID()}.${ext}`
