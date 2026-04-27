@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Header from './Header'
 import Footer from './Footer'
 import ScrollProgress from '@/components/ScrollProgress'
+import WhatsAppFab from '@/components/WhatsAppFab'
+import BackToTop from '@/components/BackToTop'
 
 export default function PublicLayout() {
   const location = useLocation()
@@ -24,6 +26,8 @@ export default function PublicLayout() {
         </AnimatePresence>
       </main>
       <Footer />
+      <BackToTop />
+      <WhatsAppFab />
     </div>
   )
 }
