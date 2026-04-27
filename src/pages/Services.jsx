@@ -13,8 +13,17 @@ const fadeUp = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } }
 const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.06 } } }
 
 export default function Services() {
-  const [services, setServices] = useState([])
-  useEffect(() => { listServices().then(setServices).catch(() => {}) }, [])
+  const [services, setServices] = useState(null) // null = loading, [] = loaded empty
+  const [error, setError] = useState(null)
+  useEffect(() => {
+    listServices()
+      .then(rows => { setServices(rows); setError(null) })
+      .catch(err => {
+        console.error('[Services] load failed:', err)
+        setError(err.message || String(err))
+        setServices([])
+      })
+  }, [])
 
   return (
     <>
@@ -32,7 +41,20 @@ export default function Services() {
 
         <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={stagger}
           className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {services.length === 0 ? (
+          {services === null ? (
+            <div className="col-span-full p-12 flex justify-center">
+              <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+            </div>
+          ) : error ? (
+            <div className="col-span-full rounded-lg border border-destructive/50 bg-destructive/5 p-8 text-center">
+              <div className="text-sm font-semibold text-destructive">Couldn't load services</div>
+              <div className="text-xs text-muted-foreground mt-1 break-all">{error}</div>
+              <div className="text-xs text-muted-foreground mt-3">
+                Open the browser console for full details. Common cause: RLS policy missing —
+                run <code>schema.sql</code> again to refresh the public read policies.
+              </div>
+            </div>
+          ) : services.length === 0 ? (
             <div className="col-span-full rounded-lg border border-dashed border-border p-12 text-center text-muted-foreground">
               No services yet. Add some from the admin panel.
             </div>
