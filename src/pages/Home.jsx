@@ -9,6 +9,8 @@ import { Card, CardContent } from '@/components/ui/Card'
 import RotatingWords from '@/components/RotatingWords'
 import AnimatedBlobs from '@/components/AnimatedBlobs'
 import Marquee from '@/components/Marquee'
+import ClientLogos from '@/components/ClientLogos'
+import GithubRepos from '@/components/GithubRepos'
 import { getProfile, listProjects, listServices, listSkills, listTestimonials } from '@/lib/queries'
 
 const stats = [
@@ -83,29 +85,29 @@ export default function Home() {
             </motion.div>
 
             <motion.h1 variants={fadeUp} className="mt-6 text-5xl md:text-7xl font-bold tracking-tight leading-[1.05]">
-              Hi, I'm <span className="gradient-text">{profile?.full_name || 'Noby'}</span>.
-              <br />
-              <span className="text-foreground">I build </span>
-              <RotatingWords
-                words={['Laravel platforms.', 'Django systems.', 'Flutter apps.', 'API integrations.', 'modern websites.']}
+              I build <RotatingWords
+                words={['websites', 'web apps', 'mobile apps', 'payment integrations']}
               />
+              <br />
+              that <span className="gradient-text">actually work</span> in Africa.
             </motion.h1>
 
             <motion.p variants={fadeUp} className="mt-6 text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed">
-              {profile?.tagline || 'Full-stack developer building modern, fast web applications that help businesses grow online.'}
+              {profile?.tagline ||
+                "I'm a full-stack developer specialising in African payment systems — Ecocash, PayNow, ZimSwitch and more — plus everything else needed to ship a modern site or app. 7+ years, fixed-quote projects, direct line to me."}
             </motion.p>
 
             <motion.div variants={fadeUp} className="mt-8 flex flex-wrap gap-3">
               <Button asChild size="lg" className="glow shine">
-                <Link to="/contact">{profile?.hire_cta_text || 'Hire Me'} <ArrowRight size={18} /></Link>
+                <Link to="/contact">{profile?.hire_cta_text || 'Book a free 20-min call'} <ArrowRight size={18} /></Link>
               </Button>
               <Button asChild variant="outline" size="lg">
-                <Link to="/projects">View Projects</Link>
+                <Link to="/projects">See my work</Link>
               </Button>
             </motion.div>
 
             <motion.div variants={fadeUp} className="mt-10 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
-              {['Direct clients welcome', 'Worldwide remote', 'Fixed quote, no surprises'].map(item => (
+              {['Fixed quote, no hourly billing', 'You own the code & data', '30 days free post-launch support'].map(item => (
                 <span key={item} className="inline-flex items-center gap-2">
                   <CheckCircle2 size={14} className="text-primary" /> {item}
                 </span>
@@ -136,6 +138,9 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      {/* Client logos / trust strip */}
+      <ClientLogos />
 
       {/* Services */}
       {services.length > 0 && (
@@ -222,6 +227,9 @@ export default function Home() {
         )}
       </section>
 
+      {/* GitHub pinned repos */}
+      <GithubRepos username="nobytechy" />
+
       {/* Testimonials */}
       {testimonials.length > 0 && (
         <section className="container-x py-20">
@@ -267,11 +275,17 @@ export default function Home() {
           <Rocket className="mx-auto size-12 text-primary" />
           <h2 className="text-3xl md:text-5xl font-bold mt-4">Have a project in mind?</h2>
           <p className="mt-3 text-muted-foreground max-w-xl mx-auto">
-            I take on a limited number of direct-client projects each quarter. Tell me about yours.
+            I take on a limited number of direct-client projects each quarter.
+            The first call is free — and if we're not a fit, I'll point you to someone who is.
           </p>
-          <Button asChild size="lg" className="mt-8 glow shine">
-            <Link to="/contact">Start a project <ArrowRight size={18} /></Link>
-          </Button>
+          <div className="mt-8 flex flex-wrap gap-3 justify-center">
+            <Button asChild size="lg" className="glow shine">
+              <Link to="/contact">Book a free 20-min call <ArrowRight size={18} /></Link>
+            </Button>
+            <Button asChild variant="outline" size="lg">
+              <Link to="/process">How I work</Link>
+            </Button>
+          </div>
         </motion.div>
       </section>
     </>

@@ -3,6 +3,7 @@ import toast from 'react-hot-toast'
 import { Trash2, MailOpen, Mail, Reply } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent } from '@/components/ui/Card'
+import { Badge } from '@/components/ui/Badge'
 import { listContactMessages, markMessageRead, deleteMessage } from '@/lib/queries'
 import { formatDate } from '@/lib/utils'
 
@@ -91,6 +92,13 @@ export default function MessagesAdmin() {
                     </Button>
                   </div>
                 </div>
+                {(active.project_type || active.budget_range || active.timeline) && (
+                  <div className="mt-4 flex flex-wrap gap-1.5">
+                    {active.project_type && <Badge variant="secondary">Type: {active.project_type}</Badge>}
+                    {active.budget_range && <Badge variant="secondary">Budget: {active.budget_range}</Badge>}
+                    {active.timeline && <Badge variant="secondary">Timeline: {active.timeline}</Badge>}
+                  </div>
+                )}
                 <div className="mt-6 whitespace-pre-line text-sm leading-relaxed">{active.message}</div>
               </CardContent>
             </Card>

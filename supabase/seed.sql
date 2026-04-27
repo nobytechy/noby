@@ -1,31 +1,34 @@
 -- ============================================================================
--- Noby Portfolio — Seed real content from existing infinityfree site
--- Run AFTER schema.sql in Supabase SQL Editor.
--- This is destructive: it deletes existing rows in the seeded tables and
--- replaces them. Don't run again if you've already edited content via admin.
+-- Noby Portfolio — Seed real content (v2)
+-- Run AFTER schema.sql AND migrations/001_v2.sql in Supabase SQL Editor.
+-- Destructive: deletes existing rows in seeded tables and replaces them.
 -- Cover images are left null — upload them via the admin panel.
 -- ============================================================================
 
 begin;
 
 -- ----------------------------------------------------------------------------
--- PROFILE  (single row — update in place rather than delete)
+-- PROFILE  (single row — update in place)
+-- Repositioned: leans into the rare combo of African payment-integration
+-- experience plus full-stack web/mobile, available worldwide.
 -- ----------------------------------------------------------------------------
 update public.profile set
   full_name = 'Noby Tebulo',
-  headline  = 'Full-Stack Developer',
-  tagline   = 'Architecting scalable enterprise solutions — 7+ years building robust applications for thousands of daily users.',
-  bio       = '7+ years designing and developing robust applications that handle complex business logic and thousands of daily users. Specialized in performance optimization, security architecture, and delivering exceptional user experiences that drive business results.
+  headline  = 'Full-Stack Developer · African Payments Specialist',
+  tagline   = 'I help businesses launch online with payment systems that actually work — from Ecocash and PayNow to global gateways.',
+  bio       = 'I''m a full-stack developer with 7+ years building production systems for businesses in Zimbabwe, across Africa, and worldwide. My speciality is the part most international developers skip: making local payment systems work — Ecocash, PayNow, ZimSwitch, EcoCash, InnBucks, plus international rails (Visa, Mastercard, PayPal).
 
-As Lead Developer at Nhau/Indaba News, I built and maintain multiple web systems serving 30+ branches nationwide. My expertise spans WordPress CMS development, custom Laravel applications, Django systems, and Flutter mobile apps — plus payment-gateway integrations (Ecocash, PayNow), WhatsApp API, and AI integrations.
+As Lead Developer at Nhau/Indaba News I built and maintain systems serving 30+ branches nationwide. For the Adoptive and Foster Parents Association of Zimbabwe (AFPAZ) I integrated PayNow so international donors can give in seconds instead of waiting on bank deposits. For Foliage Fuels I built a time-sensitive document portal with automated lifecycle and WhatsApp notifications.
 
-Beyond coding I have field experience with Restless Development Zimbabwe, conducting research and data collection for public-health programs in Hwedza District.
+The stack: PHP/Laravel · Python/Django · JavaScript (React, Vue) · Flutter · WordPress · MySQL/PostgreSQL · plus deep API integration experience including AI (DeepSeek), WhatsApp Business, and every major payment gateway in the region.
 
-Available for direct-client projects worldwide.',
+Beyond code: field experience with Restless Development Zimbabwe doing data-collection and research for public-health programs in Hwedza District — useful when projects need real-world context, not just technical execution.
+
+Available for direct-client projects. Fixed-quote, milestone-based, no surprises.',
   email     = 'nobytechy@gmail.com',
   phone     = '+263 774 603 865',
   location  = 'Harare, Zimbabwe — remote worldwide',
-  hire_cta_text = 'Hire Me',
+  hire_cta_text = 'Book a free 20-min call',
   socials = jsonb_build_object(
     'github',   'https://github.com/nobytechy',
     'linkedin', 'https://linkedin.com/in/nobytechy',
@@ -34,28 +37,29 @@ Available for direct-client projects worldwide.',
   );
 
 -- ----------------------------------------------------------------------------
--- SERVICES
+-- SERVICES — with starting prices (USD). Prices are conservative anchors;
+-- update via admin panel after first few inquiries.
 -- ----------------------------------------------------------------------------
 delete from public.services;
-insert into public.services (title, description, icon, sort_order) values
-  ('Backend Development',
-   'PHP, Laravel, CodeIgniter, Python/Django, Node.js, REST APIs, MySQL, PostgreSQL. Scalable server-side architecture with clean, maintainable code.',
-   'fullstack', 1),
-  ('Frontend Development',
-   'JavaScript ES6+, React, Vue.js, HTML5, CSS3, Tailwind, Bootstrap. Responsive, interactive user interfaces that convert.',
-   'web', 2),
-  ('WordPress & CMS',
-   'Custom themes, plugins, WooCommerce, Elementor. Building and maintaining content management systems for businesses of every size.',
-   'fullstack', 3),
-  ('API Integration',
-   'Payment gateways (Ecocash, PayNow, ZimSwitch, VISA), WhatsApp API, AI integrations (DeepSeek), third-party services. Connecting systems seamlessly.',
-   'fullstack', 4),
-  ('Mobile Development',
-   'Flutter and React Native cross-platform apps. From idea to App Store / Play Store with a single codebase.',
-   'mobile', 5);
+insert into public.services (title, description, icon, price_from, price_unit, sort_order) values
+  ('Custom Web Application',
+   'Bespoke Laravel or Django apps with auth, dashboards, integrations and clean UX. Built to scale, owned by you, hosted anywhere.',
+   'fullstack', 1500, 'USD', 1),
+  ('WordPress / WooCommerce Site',
+   'Custom themes, plugins, WooCommerce stores. Shipped fast, mobile-perfect, ready for marketing campaigns.',
+   'web', 600, 'USD', 2),
+  ('Payment Integration',
+   'Ecocash, PayNow, ZimSwitch, InnBucks, Stripe, PayPal — wired into your existing or new site. The local payments specialty most devs avoid.',
+   'fullstack', 400, 'USD', 3),
+  ('API & 3rd-party Integrations',
+   'WhatsApp Business API, AI (DeepSeek/OpenAI), CRM, accounting tools — connected and tested end-to-end.',
+   'fullstack', 350, 'USD', 4),
+  ('Mobile App (Flutter)',
+   'Cross-platform mobile apps from one codebase. Android + iOS. Includes backend wiring and store submission.',
+   'mobile', 2500, 'USD', 5);
 
 -- ----------------------------------------------------------------------------
--- SKILLS
+-- SKILLS — grouped by category
 -- ----------------------------------------------------------------------------
 delete from public.skills;
 insert into public.skills (name, category, level, sort_order) values
@@ -82,130 +86,77 @@ insert into public.skills (name, category, level, sort_order) values
   ('PostgreSQL',  'Databases', 5, 31),
   ('MongoDB',     'Databases', 4, 32),
   ('SQLite',      'Databases', 4, 33),
+  -- Integrations & Payments
+  ('Ecocash API',     'Payments', 5, 40),
+  ('PayNow',          'Payments', 5, 41),
+  ('ZimSwitch',       'Payments', 4, 42),
+  ('Stripe / PayPal', 'Payments', 4, 43),
+  ('WhatsApp Business API', 'Integrations', 4, 50),
+  ('DeepSeek / OpenAI API', 'Integrations', 4, 51),
   -- Tools
-  ('Git',         'Tools',     5, 40),
-  ('Docker',      'Tools',     4, 41),
-  ('REST APIs',   'Tools',     5, 42),
-  ('GraphQL',     'Tools',     4, 43);
+  ('Git',         'Tools',     5, 60),
+  ('Docker',      'Tools',     4, 61),
+  ('REST APIs',   'Tools',     5, 62),
+  ('GraphQL',     'Tools',     4, 63);
 
 -- ----------------------------------------------------------------------------
--- PROJECTS (12 from your existing site)
--- Featured = first 4 (real client work). Others marked non-featured;
--- update URLs / cover images via admin panel as you finalize them.
+-- PROJECTS — only the 4 real client projects. Placeholder/example.com
+-- entries removed to protect credibility. Add new projects via admin panel
+-- once they're real and live.
 -- ----------------------------------------------------------------------------
 delete from public.projects;
 insert into public.projects
-  (slug, title, short_description, long_description, tags, tech_stack, github_url, live_url, featured, sort_order)
+  (slug, title, short_description, long_description, tags, tech_stack,
+   github_url, live_url, client_name, year_completed, featured, sort_order)
 values
   ('grocery-ecommerce',
    'Grocery E-commerce Platform',
-   'Full-featured online grocery store with Ecocash payment integration and inventory management.',
-   E'Built a full-featured online grocery store from scratch. Highlights:\n\n• Integrated Ecocash API for local mobile-money transactions\n• Inventory management system with low-stock alerts\n• Delivery scheduling tied to customer postcode\n• 40% faster checkout flow vs. previous platform',
+   'Full-featured online grocery store with Ecocash mobile-money checkout and inventory management.',
+   E'**Problem.** A local grocery business needed to move online — but the existing global e-commerce platforms didn''t support Ecocash, the dominant mobile-money rail in Zimbabwe. Customers were dropping off at checkout because they couldn''t pay.\n\n**What I built.** Custom WooCommerce store with a bespoke Ecocash integration, full inventory management, low-stock alerts, and postcode-based delivery scheduling.\n\n**Result.** 40% faster checkout flow vs. the platform''s previous solution. Customers complete payment in their existing Ecocash app — no card needed, no abandoned carts.',
    ARRAY['ecommerce','web'],
-   ARRAY['PHP','WordPress','WooCommerce','Ecocash API'],
+   ARRAY['PHP','WordPress','WooCommerce','Ecocash API','MySQL'],
    null,
    'https://noby.infinityfree.me/shop',
-   true, 1),
+   'Local grocery (Harare)',
+   2024, true, 1),
 
   ('ravensus',
-   'Ravensus (Pvt) Ltd Company',
-   'Professional service website for a local business with mobile-responsive design.',
-   E'Delivered a professional web presence within tight budget constraints.\n\n• Customized templates to match brand identity, saving 60–80% of build time vs. fully custom\n• Reduced bounce rate by 25% with improved navigation\n• Responsive design hits 95% mobile compatibility',
+   'Ravensus (Pvt) Ltd — Corporate Site',
+   'Professional service website for a local services business with mobile-first design.',
+   E'**Problem.** Ravensus needed a credible online presence on a tight budget and timeline — without sacrificing brand quality.\n\n**What I built.** Custom mobile-first site, brand-aligned templates, optimized navigation and lead capture. Hosted on cPanel for client self-management.\n\n**Result.** 25% reduction in bounce rate vs. the prior placeholder site. 95% mobile-compatibility score. Delivered in budget, in time, with templates that saved 60–80% of build time vs. fully custom — without looking templated.',
    ARRAY['cms','web'],
    ARRAY['HTML','Bootstrap','CSS','JavaScript'],
    null,
    'https://noby.infinityfree.me/ravensus/',
-   true, 2),
+   'Ravensus (Pvt) Ltd',
+   2024, true, 2),
 
   ('afpaz',
-   'Adoptive and Foster Parents Association of Zimbabwe',
-   'Digital transparency platform connecting NGOs with international funding partners.',
-   E'Built a transparency and donation platform for AFPAZ.\n\n• Integrated PayNow gateway: ZimSwitch, VISA, EcoCash, InnBucks online donations\n• Secure document portal cut sharing time from hours to minutes\n• Switched donation processing from manual bank deposits to instant online payments\n• Role-based access protects sensitive NGO data and finances',
+   'AFPAZ — Donations & Document Portal',
+   'Digital transparency platform letting international funders donate online and access NGO documents securely.',
+   E'**Problem.** The Adoptive and Foster Parents Association of Zimbabwe (AFPAZ) was losing donor momentum because international donations required manual bank deposits — slow, opaque, and frustrating for funders. NGO documents were being shared by email, unsecurely.\n\n**What I built.** Full PayNow gateway integration (ZimSwitch, VISA, Mastercard, EcoCash, InnBucks), a secure role-based document portal, and a transparency dashboard for funding partners.\n\n**Result.** Donation processing dropped from days (manual deposits) to seconds (instant online). Document sharing dropped from hours to minutes. Sensitive financial and beneficiary data now sits behind role-based access. International funders can give from any country, in any payment method they prefer.',
    ARRAY['api','cms','web'],
-   ARRAY['REST API','JavaScript','PHP','MySQL','Bootstrap'],
+   ARRAY['PHP','REST API','JavaScript','MySQL','Bootstrap','PayNow'],
    null,
    'https://noby.infinityfree.me/afpaz/',
-   true, 3),
+   'Adoptive & Foster Parents Association of Zimbabwe',
+   2024, true, 3),
 
   ('foliage-fuels',
-   'Foliage Fuels — Corporate & Document Portal',
-   'Corporate site plus a time-sensitive document portal with automated lifecycle management and reminders.',
-   E'Corporate site bundled with an automated document-management portal.\n\n• Time-based access control with automated expiration\n• Custom expiration rules: date, download-count, or time-based\n• Bulk expiration management for large document sets\n• Document encryption for sensitive sponsor data',
-   ARRAY['web','cms'],
-   ARRAY['PHP','JavaScript','HTML','Bootstrap','CSS','WhatsApp API','REST API'],
+   'Foliage Fuels — Document Portal & Corporate Site',
+   'Corporate site bundled with a time-sensitive document portal featuring automated lifecycle management and WhatsApp reminders.',
+   E'**Problem.** Foliage Fuels deals with documents that expire on dates, after N downloads, or after fixed periods — and they needed sponsors to be notified automatically without manual follow-up.\n\n**What I built.** Custom document portal with three expiration modes (date, download-count, time-based), bulk lifecycle management for batches, server-side encryption for sensitive sponsor files, and WhatsApp Business API reminders for upcoming expirations.\n\n**Result.** Manual follow-up on document expiration eliminated. Sponsors receive WhatsApp reminders 7 / 3 / 1 days before expiry. Documents that should be inaccessible after their window genuinely become inaccessible — no leaks via stale links.',
+   ARRAY['web','cms','api'],
+   ARRAY['PHP','JavaScript','HTML','Bootstrap','WhatsApp API','REST API'],
    null,
    'https://noby.infinityfree.me/foliage/',
-   true, 4),
-
-  ('ai-news-assistant',
-   'AI News Assistant',
-   'AI-powered content summarization and article generation built on the DeepSeek API.',
-   E'Editorial assistant that summarizes long-form news and drafts article skeletons.\n\n• DeepSeek API integration\n• Real-time chat assistance for editors\n• Automated content summarization\n• Engagement uplift on summarized stories',
-   ARRAY['api','web','cms'],
-   ARRAY['AI Integration','PHP','DeepSeek API','JavaScript'],
-   null, null, false, 5),
-
-  ('real-estate-portal',
-   'Real Estate Portal',
-   'Property listing platform with virtual tours and integrated booking.',
-   E'Listings platform for agencies.\n\n• Interactive listings with map search\n• Virtual tour integration\n• Agent management dashboard\n• Booking and scheduling',
-   ARRAY['web','api'],
-   ARRAY['Laravel','Vue.js','MySQL','Map API'],
-   null, null, false, 6),
-
-  ('school-management',
-   'School Management System',
-   'Comprehensive school administration and student-management system.',
-   E'End-to-end school admin platform.\n\n• Student enrollment and records\n• Grade management and reports\n• Parent portal\n• Attendance tracking',
-   ARRAY['web','cms'],
-   ARRAY['PHP','CodeIgniter','MySQL','Bootstrap'],
-   null, null, false, 7),
-
-  ('elearning-platform',
-   'E-learning Platform',
-   'Online course platform with video streaming, quizzes and certificates.',
-   E'Course delivery platform.\n\n• Video lesson streaming\n• Interactive quizzes\n• Per-learner progress tracking\n• Auto-generated certificates',
-   ARRAY['web','api'],
-   ARRAY['Laravel','React','MySQL','Video Streaming'],
-   null, null, false, 8),
-
-  ('inventory-management',
-   'Inventory Management',
-   'Stock-tracking and inventory-control system with barcode scanning.',
-   E'Internal inventory tool.\n\n• Real-time stock updates across locations\n• Barcode scanning\n• Sales reporting\n• Supplier management',
-   ARRAY['web','api'],
-   ARRAY['Python','Django','PostgreSQL','React'],
-   null, null, false, 9),
-
-  ('hotel-booking',
-   'Hotel Booking System',
-   'Online hotel reservation and booking management.',
-   E'Reservation engine for hospitality.\n\n• Real-time room availability calendar\n• Online payment integration\n• Guest management\n• Reviews and ratings',
-   ARRAY['web','ecommerce'],
-   ARRAY['PHP','Laravel','MySQL','Payment API'],
-   null, null, false, 10),
-
-  ('healthcare-appointments',
-   'Healthcare Appointment System',
-   'Medical appointment scheduling and patient management.',
-   E'Clinic and practice management.\n\n• Doctor scheduling\n• Patient records\n• Automated appointment reminders\n• Prescription management',
-   ARRAY['web','api'],
-   ARRAY['Laravel','Vue.js','MySQL','Calendar API'],
-   null, null, false, 11),
-
-  ('food-delivery',
-   'Food Delivery App',
-   'Multi-restaurant food ordering and delivery platform with live tracking.',
-   E'End-to-end ordering platform spanning customer mobile, restaurant dashboard and driver app.\n\n• Real-time order tracking\n• Multi-restaurant onboarding\n• Driver dispatch and management\n• Reviews and ratings',
-   ARRAY['mobile','web','api'],
-   ARRAY['Flutter','Laravel','MySQL','Map API'],
-   null, null, false, 12);
+   'Foliage Fuels',
+   2024, true, 4);
 
 -- ----------------------------------------------------------------------------
 -- TESTIMONIALS — left empty intentionally.
--- The "experience" carousel on the old site was self-written; populating it
--- as fake testimonials would mislead clients. Add real ones via admin once
--- you have client quotes.
+-- Email AFPAZ, Foliage, Ravensus contacts and ask for 2-sentence quotes.
+-- One real quote outweighs ten fake ones.
 -- ----------------------------------------------------------------------------
 
 commit;

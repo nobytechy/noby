@@ -8,10 +8,11 @@ import Logo from '@/components/Logo'
 
 const links = [
   { to: '/', label: 'Home' },
-  { to: '/about', label: 'About' },
   { to: '/services', label: 'Services' },
   { to: '/projects', label: 'Projects' },
-  { to: '/contact', label: 'Contact' },
+  { to: '/process', label: 'Process' },
+  { to: '/about', label: 'About' },
+  { to: '/faq', label: 'FAQ' },
 ]
 
 export default function Header() {
@@ -51,9 +52,9 @@ export default function Header() {
           </button>
           <Link
             to="/contact"
-            className="hidden md:inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity"
+            className="hidden md:inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity glow"
           >
-            Hire Me
+            Book a call
           </Link>
           <button
             onClick={() => setOpen(o => !o)}
@@ -93,7 +94,7 @@ export default function Header() {
                 onClick={() => setOpen(false)}
                 className="mt-2 inline-flex justify-center items-center rounded-md bg-primary px-4 py-3 text-sm font-medium text-primary-foreground"
               >
-                Hire Me
+                Book a call
               </Link>
             </nav>
           </motion.div>

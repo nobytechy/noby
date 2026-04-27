@@ -6,6 +6,8 @@ import Services from '@/pages/Services'
 import Projects from '@/pages/Projects'
 import ProjectDetail from '@/pages/ProjectDetail'
 import Contact from '@/pages/Contact'
+import Process from '@/pages/Process'
+import FAQ from '@/pages/FAQ'
 import NotFound from '@/pages/NotFound'
 
 import Login from '@/admin/Login'
@@ -28,6 +30,8 @@ export default function App() {
         <Route path="services" element={<Services />} />
         <Route path="projects" element={<Projects />} />
         <Route path="projects/:slug" element={<ProjectDetail />} />
+        <Route path="process" element={<Process />} />
+        <Route path="faq" element={<FAQ />} />
         <Route path="contact" element={<Contact />} />
       </Route>
 

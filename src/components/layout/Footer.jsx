@@ -25,9 +25,11 @@ export default function Footer() {
           <div>
             <div className="text-sm font-semibold mb-3">Site</div>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link to="/about" className="hover:text-foreground">About</Link></li>
               <li><Link to="/services" className="hover:text-foreground">Services</Link></li>
               <li><Link to="/projects" className="hover:text-foreground">Projects</Link></li>
+              <li><Link to="/process" className="hover:text-foreground">Process</Link></li>
+              <li><Link to="/about" className="hover:text-foreground">About</Link></li>
+              <li><Link to="/faq" className="hover:text-foreground">FAQ</Link></li>
               <li><Link to="/contact" className="hover:text-foreground">Contact</Link></li>
             </ul>
           </div>
