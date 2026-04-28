@@ -14,12 +14,31 @@
   RewriteRule ^ index.html [L]
 </IfModule>
 
+# MIME types for PWA assets
+<IfModule mod_mime.c>
+  AddType application/manifest+json .webmanifest
+  AddType application/javascript .js
+</IfModule>
+
 # Security headers
 <IfModule mod_headers.c>
   Header set X-Content-Type-Options "nosniff"
   Header set X-Frame-Options "SAMEORIGIN"
   Header set Referrer-Policy "strict-origin-when-cross-origin"
   Header set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+
+  # Service worker must never be cached by the browser, otherwise
+  # users get stuck on a stale SW that never picks up new builds.
+  <FilesMatch "^(sw|workbox-.*)\.js$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+  </FilesMatch>
+
+  # Manifest should be revalidated each visit so name/theme updates land
+  <FilesMatch "manifest\.webmanifest$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
 </IfModule>
 
 # Cache static assets aggressively (Vite hashes filenames)
@@ -33,6 +52,7 @@
   ExpiresByType text/css "access plus 1 year"
   ExpiresByType application/javascript "access plus 1 year"
   ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType application/manifest+json "access plus 0 seconds"
 </IfModule>
 
 # Gzip

@@ -7,6 +7,7 @@ import './index.css'
 import App from './App.jsx'
 import { AuthProvider } from '@/context/AuthContext'
 import { ThemeProvider } from '@/context/ThemeContext'
+import PWAUpdatePrompt from '@/components/PWAUpdatePrompt'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -15,6 +16,7 @@ createRoot(document.getElementById('root')).render(
         <AuthProvider>
           <BrowserRouter>
             <App />
+            <PWAUpdatePrompt />
             <Toaster position="bottom-right" toastOptions={{
               style: { background: 'var(--card)', color: 'var(--foreground)', border: '1px solid var(--border)' },
             }} />
