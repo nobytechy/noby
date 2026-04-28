@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { Trash2, MailOpen, Mail, Reply } from 'lucide-react'
+import { Trash2, MailOpen, Mail, Reply, Phone, MessageCircle } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
@@ -57,7 +57,9 @@ export default function MessagesAdmin() {
                     <div className="font-semibold truncate">{m.name}</div>
                     {!m.is_read && <span className="size-2 rounded-full bg-primary mt-1.5 shrink-0" />}
                   </div>
-                  <div className="text-xs text-muted-foreground truncate">{m.email}</div>
+                  <div className="text-xs text-muted-foreground truncate">
+                    {m.phone || m.email || '— no contact —'}
+                  </div>
                   <div className="text-sm mt-1 truncate">{m.subject || m.message}</div>
                   <div className="text-xs text-muted-foreground mt-2">{formatDate(m.created_at)}</div>
                 </button>
@@ -70,21 +72,41 @@ export default function MessagesAdmin() {
           {active ? (
             <Card>
               <CardContent className="p-6">
-                <div className="flex items-start justify-between gap-3">
-                  <div>
+                <div className="flex items-start justify-between gap-3 flex-wrap">
+                  <div className="min-w-0">
                     <h2 className="text-xl font-bold">{active.subject || '(no subject)'}</h2>
                     <div className="text-sm text-muted-foreground mt-1">
-                      From <span className="font-medium text-foreground">{active.name}</span> &lt;{active.email}&gt;
+                      From <span className="font-medium text-foreground">{active.name}</span>
                     </div>
-                    <div className="text-xs text-muted-foreground">{formatDate(active.created_at)}</div>
+                    <div className="mt-1 space-y-0.5 text-xs text-muted-foreground">
+                      {active.phone && <div>Phone: <a href={`tel:${active.phone.replace(/\s/g,'')}`} className="text-foreground hover:text-primary">{active.phone}</a></div>}
+                      {active.email && <div>Email: <a href={`mailto:${active.email}`} className="text-foreground hover:text-primary">{active.email}</a></div>}
+                      <div>{formatDate(active.created_at)}</div>
+                    </div>
                   </div>
-                  <div className="flex gap-1">
-                    <Button asChild size="sm" variant="outline">
-                      <a href={`mailto:${active.email}?subject=Re: ${encodeURIComponent(active.subject || '')}`}>
-                        <Reply size={14} /> Reply
-                      </a>
-                    </Button>
-                    <Button size="sm" variant="ghost" onClick={() => onToggleRead(active)}>
+                  <div className="flex flex-wrap gap-1">
+                    {active.phone && (
+                      <Button asChild size="sm" variant="outline" className="bg-[#25D366]/10 border-[#25D366]/40 text-[#1da651] hover:bg-[#25D366]/20">
+                        <a href={`https://wa.me/${active.phone.replace(/\D/g,'')}?text=${encodeURIComponent(`Hi ${active.name},\n\nThanks for reaching out — `)}`} target="_blank" rel="noreferrer">
+                          <MessageCircle size={14} /> WhatsApp
+                        </a>
+                      </Button>
+                    )}
+                    {active.phone && (
+                      <Button asChild size="sm" variant="outline">
+                        <a href={`tel:${active.phone.replace(/\s/g,'')}`}>
+                          <Phone size={14} /> Call
+                        </a>
+                      </Button>
+                    )}
+                    {active.email && (
+                      <Button asChild size="sm" variant="outline">
+                        <a href={`mailto:${active.email}?subject=Re: ${encodeURIComponent(active.subject || '')}`}>
+                          <Reply size={14} /> Email
+                        </a>
+                      </Button>
+                    )}
+                    <Button size="sm" variant="ghost" onClick={() => onToggleRead(active)} title={active.is_read ? 'Mark unread' : 'Mark read'}>
                       {active.is_read ? <Mail size={14} /> : <MailOpen size={14} />}
                     </Button>
                     <Button size="sm" variant="ghost" onClick={() => onDelete(active)} className="text-destructive hover:text-destructive">

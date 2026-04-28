@@ -38,7 +38,7 @@ const TIMELINES = [
 
 export default function Contact() {
   const [form, setForm] = useState({
-    name: '', email: '', subject: '',
+    name: '', email: '', phone: '', subject: '',
     project_type: '', budget_range: '', timeline: '',
     message: '',
   })
@@ -70,21 +70,22 @@ export default function Contact() {
 
   const onSubmit = async (e) => {
     e.preventDefault()
-    if (!form.name || !form.email || !form.message) {
-      toast.error('Please fill in name, email, and message.')
+    if (!form.name || !form.phone || !form.message) {
+      toast.error('Please fill in name, phone, and message.')
       return
     }
     setSubmitting(true)
     try {
       await submitContact({
         ...form,
-        // empty selects -> null so DB doesn't store empty strings
+        // empty optional fields -> null so DB doesn't store empty strings
+        email: form.email || null,
         project_type: form.project_type || null,
         budget_range: form.budget_range || null,
         timeline: form.timeline || null,
       })
       toast.success('Message sent. I\'ll get back to you within 24 hours.')
-      setForm({ name: '', email: '', subject: '', project_type: '', budget_range: '', timeline: '', message: '' })
+      setForm({ name: '', email: '', phone: '', subject: '', project_type: '', budget_range: '', timeline: '', message: '' })
     } catch (err) {
       toast.error('Something went wrong. Please try again.')
     } finally {
@@ -151,9 +152,22 @@ export default function Contact() {
                 <Input id="name" value={form.name} onChange={set('name')} required />
               </div>
               <div className="space-y-1.5">
-                <Label htmlFor="email">Email <span className="text-destructive">*</span></Label>
-                <Input id="email" type="email" value={form.email} onChange={set('email')} required />
+                <Label htmlFor="phone">Phone / WhatsApp <span className="text-destructive">*</span></Label>
+                <Input
+                  id="phone"
+                  type="tel"
+                  value={form.phone}
+                  onChange={set('phone')}
+                  placeholder="+263 77…"
+                  autoComplete="tel"
+                  required
+                />
               </div>
+            </div>
+
+            <div className="space-y-1.5">
+              <Label htmlFor="email">Email <span className="text-muted-foreground">(optional)</span></Label>
+              <Input id="email" type="email" value={form.email} onChange={set('email')} placeholder="you@company.com" />
             </div>
 
             <div className="grid sm:grid-cols-2 gap-4">
