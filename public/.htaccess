@@ -1,3 +1,21 @@
+# mod_pagespeed: turn it OFF for this site. Its remove_quotes filter strips
+# quotes around `property="og:image"`, breaking Open Graph parsing in
+# Facebook/WhatsApp/LinkedIn → no link previews. We also send a
+# Cache-Control: no-transform header on HTML so that, if cPanel is enforcing
+# PageSpeed at vhost level and ignoring our `ModPagespeed off`, PageSpeed will
+# still leave the response untouched (it respects no-transform by default).
+<IfModule pagespeed_module>
+  ModPagespeed off
+  ModPagespeedRewriteLevel PassThrough
+  ModPagespeedDisableFilters remove_quotes,elide_attributes,collapse_whitespace
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-transform, max-age=0, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
 # SPA fallback for client-side routing on Apache / cPanel.
 # All non-file, non-directory requests get rewritten to index.html.
 

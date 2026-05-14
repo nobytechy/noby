@@ -1,7 +1,14 @@
 -- ============================================================================
 -- Noby Portfolio — Supabase schema
 -- Run this in: Supabase Dashboard → SQL Editor → New query → paste → Run
--- Then: Authentication → Users → Add user (nobytechy@gmail.com) so admin can log in.
+-- Then: Authentication → Users → Add user
+--   email:    aizim1900@gmail.com
+--   password: 20301980             (default PIN — change it from the admin UI)
+--
+-- The admin email is hardcoded in two places:
+--   1. RLS policies below (auth.jwt() ->> 'email')
+--   2. src/context/AuthContext.jsx (ADMIN_EMAIL)
+-- If you change one, change the other.
 -- ============================================================================
 
 -- Extensions ---------------------------------------------------------------
@@ -114,8 +121,8 @@ create trigger trg_projects_updated before update on public.projects
 
 -- ============================================================================
 -- ROW LEVEL SECURITY
--- Strategy: anyone can READ public content. Only the authenticated admin
--- (any signed-in user — there's only one in this project) can write.
+-- Strategy: anyone can READ public content. Only the hardcoded admin email
+-- (aizim1900@gmail.com — see file header) can write.
 -- contact_messages: anyone can INSERT; only admin can read/update/delete.
 -- ============================================================================
 
@@ -142,26 +149,26 @@ create policy "public read skills" on public.skills for select using (true);
 drop policy if exists "public read testimonials" on public.testimonials;
 create policy "public read testimonials" on public.testimonials for select using (true);
 
--- admin (any authenticated user) write policies
+-- admin write policies — scoped to ADMIN_EMAIL only
 drop policy if exists "admin write profile"      on public.profile;
 create policy "admin write profile" on public.profile
-  for all using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
+  for all using (auth.jwt() ->> 'email' = 'aizim1900@gmail.com') with check (auth.jwt() ->> 'email' = 'aizim1900@gmail.com');
 
 drop policy if exists "admin write projects"     on public.projects;
 create policy "admin write projects" on public.projects
-  for all using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
+  for all using (auth.jwt() ->> 'email' = 'aizim1900@gmail.com') with check (auth.jwt() ->> 'email' = 'aizim1900@gmail.com');
 
 drop policy if exists "admin write services"     on public.services;
 create policy "admin write services" on public.services
-  for all using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
+  for all using (auth.jwt() ->> 'email' = 'aizim1900@gmail.com') with check (auth.jwt() ->> 'email' = 'aizim1900@gmail.com');
 
 drop policy if exists "admin write skills"       on public.skills;
 create policy "admin write skills" on public.skills
-  for all using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
+  for all using (auth.jwt() ->> 'email' = 'aizim1900@gmail.com') with check (auth.jwt() ->> 'email' = 'aizim1900@gmail.com');
 
 drop policy if exists "admin write testimonials" on public.testimonials;
 create policy "admin write testimonials" on public.testimonials
-  for all using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
+  for all using (auth.jwt() ->> 'email' = 'aizim1900@gmail.com') with check (auth.jwt() ->> 'email' = 'aizim1900@gmail.com');
 
 -- contact_messages: anyone can insert, only admin can read/update/delete
 drop policy if exists "anyone can submit contact" on public.contact_messages;
@@ -170,15 +177,15 @@ create policy "anyone can submit contact" on public.contact_messages
 
 drop policy if exists "admin reads contact"       on public.contact_messages;
 create policy "admin reads contact" on public.contact_messages
-  for select using (auth.role() = 'authenticated');
+  for select using (auth.jwt() ->> 'email' = 'aizim1900@gmail.com');
 
 drop policy if exists "admin updates contact"     on public.contact_messages;
 create policy "admin updates contact" on public.contact_messages
-  for update using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
+  for update using (auth.jwt() ->> 'email' = 'aizim1900@gmail.com') with check (auth.jwt() ->> 'email' = 'aizim1900@gmail.com');
 
 drop policy if exists "admin deletes contact"     on public.contact_messages;
 create policy "admin deletes contact" on public.contact_messages
-  for delete using (auth.role() = 'authenticated');
+  for delete using (auth.jwt() ->> 'email' = 'aizim1900@gmail.com');
 
 -- ============================================================================
 -- STORAGE BUCKETS
@@ -204,13 +211,13 @@ create policy "public read documents" on storage.objects
 
 drop policy if exists "admin write images" on storage.objects;
 create policy "admin write images" on storage.objects
-  for all using (bucket_id = 'images' and auth.role() = 'authenticated')
-         with check (bucket_id = 'images' and auth.role() = 'authenticated');
+  for all using (bucket_id = 'images' and auth.jwt() ->> 'email' = 'aizim1900@gmail.com')
+         with check (bucket_id = 'images' and auth.jwt() ->> 'email' = 'aizim1900@gmail.com');
 
 drop policy if exists "admin write documents" on storage.objects;
 create policy "admin write documents" on storage.objects
-  for all using (bucket_id = 'documents' and auth.role() = 'authenticated')
-         with check (bucket_id = 'documents' and auth.role() = 'authenticated');
+  for all using (bucket_id = 'documents' and auth.jwt() ->> 'email' = 'aizim1900@gmail.com')
+         with check (bucket_id = 'documents' and auth.jwt() ->> 'email' = 'aizim1900@gmail.com');
 
 -- ============================================================================
 -- SEED — placeholder profile row so the public site renders before login

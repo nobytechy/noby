@@ -23,10 +23,15 @@ import ProfileAdmin from '@/admin/ProfileAdmin'
 import MessagesAdmin from '@/admin/MessagesAdmin'
 import PinnedReposAdmin from '@/admin/PinnedReposAdmin'
 import ProductsAdmin from '@/admin/ProductsAdmin'
+import ChangePin from '@/admin/ChangePin'
+import Analytics from '@/admin/Analytics'
 import ProtectedRoute from '@/components/ProtectedRoute'
+import AnalyticsTracker from '@/components/AnalyticsTracker'
 
 export default function App() {
   return (
+    <>
+    <AnalyticsTracker />
     <Routes>
       <Route element={<PublicLayout />}>
         <Route index element={<Home />} />
@@ -52,9 +57,12 @@ export default function App() {
         <Route path="repos" element={<PinnedReposAdmin />} />
         <Route path="profile" element={<ProfileAdmin />} />
         <Route path="messages" element={<MessagesAdmin />} />
+        <Route path="security" element={<ChangePin />} />
+        <Route path="analytics" element={<Analytics />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />
     </Routes>
+    </>
   )
 }

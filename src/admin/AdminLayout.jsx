@@ -1,5 +1,5 @@
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom'
-import { LayoutDashboard, FolderGit2, Wrench, Sparkles, Users, Mail, User, LogOut, ExternalLink, Star, Package } from 'lucide-react'
+import { LayoutDashboard, FolderGit2, Wrench, Sparkles, Users, Mail, User, LogOut, ExternalLink, Star, Package, KeyRound, BarChart3 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useAuth } from '@/context/AuthContext'
 import { cn } from '@/lib/utils'
@@ -7,6 +7,7 @@ import Logo from '@/components/Logo'
 
 const links = [
   { to: '/admin', label: 'Dashboard', icon: LayoutDashboard, end: true },
+  { to: '/admin/analytics', label: 'Analytics', icon: BarChart3 },
   { to: '/admin/projects', label: 'Projects', icon: FolderGit2 },
   { to: '/admin/products', label: 'Products', icon: Package },
   { to: '/admin/services', label: 'Services', icon: Wrench },
@@ -15,10 +16,11 @@ const links = [
   { to: '/admin/repos', label: 'Pinned repos', icon: Star },
   { to: '/admin/messages', label: 'Inbox', icon: Mail },
   { to: '/admin/profile', label: 'Profile', icon: User },
+  { to: '/admin/security', label: 'Security', icon: KeyRound },
 ]
 
 export default function AdminLayout() {
-  const { user, signOut } = useAuth()
+  const { signOut } = useAuth()
   const nav = useNavigate()
 
   const handleSignOut = async () => {
@@ -56,7 +58,7 @@ export default function AdminLayout() {
           <button onClick={handleSignOut} className="w-full flex items-center gap-3 rounded-md px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary/50">
             <LogOut size={16} /> Sign Out
           </button>
-          <div className="px-3 pt-3 text-xs text-muted-foreground truncate">{user?.email}</div>
+          <div className="px-3 pt-3 text-xs text-muted-foreground">Signed in</div>
         </div>
       </aside>
 

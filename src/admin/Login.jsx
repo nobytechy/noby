@@ -9,10 +9,12 @@ import { Label } from '@/components/ui/Label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card'
 import { useAuth } from '@/context/AuthContext'
 
+const PIN_MIN = 4
+const PIN_MAX = 12
+
 export default function Login() {
   const { session, signIn, loading } = useAuth()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [pin, setPin] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const nav = useNavigate()
   const loc = useLocation()
@@ -20,13 +22,23 @@ export default function Login() {
 
   if (!loading && session) return <Navigate to={from} replace />
 
+  const handlePinChange = (e) => {
+    const digitsOnly = e.target.value.replace(/\D/g, '').slice(0, PIN_MAX)
+    setPin(digitsOnly)
+  }
+
   const onSubmit = async (e) => {
     e.preventDefault()
+    if (pin.length < PIN_MIN) {
+      toast.error(`PIN must be at least ${PIN_MIN} digits`)
+      return
+    }
     setSubmitting(true)
-    const { error } = await signIn(email, password)
+    const { error } = await signIn(pin)
     setSubmitting(false)
     if (error) {
-      toast.error(error.message || 'Sign-in failed')
+      toast.error('Incorrect PIN')
+      setPin('')
     } else {
       toast.success('Welcome back')
       nav(from, { replace: true })
@@ -43,19 +55,28 @@ export default function Login() {
               <Lock size={18} />
             </div>
             <CardTitle>Admin Login</CardTitle>
-            <CardDescription>Sign in to manage your portfolio.</CardDescription>
+            <CardDescription>Enter your PIN to manage your portfolio.</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={onSubmit} className="space-y-4">
               <div className="space-y-1.5">
-                <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                <Label htmlFor="pin">PIN</Label>
+                <Input
+                  id="pin"
+                  type="password"
+                  inputMode="numeric"
+                  autoComplete="current-password"
+                  pattern="\d*"
+                  minLength={PIN_MIN}
+                  maxLength={PIN_MAX}
+                  value={pin}
+                  onChange={handlePinChange}
+                  placeholder="••••••••"
+                  autoFocus
+                  required
+                />
               </div>
-              <div className="space-y-1.5">
-                <Label htmlFor="password">Password</Label>
-                <Input id="password" type="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-              </div>
-              <Button type="submit" className="w-full" disabled={submitting}>
+              <Button type="submit" className="w-full" disabled={submitting || pin.length < PIN_MIN}>
                 {submitting ? 'Signing in…' : 'Sign In'}
               </Button>
             </form>
