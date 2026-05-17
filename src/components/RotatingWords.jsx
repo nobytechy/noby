@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
-export default function RotatingWords({ words, interval = 2400, className = '' }) {
+export default function RotatingWords({ words, interval = 5000, className = '' }) {
   const [i, setI] = useState(0)
   useEffect(() => {
     const t = setInterval(() => setI(v => (v + 1) % words.length), interval)
@@ -12,10 +12,10 @@ export default function RotatingWords({ words, interval = 2400, className = '' }
       <AnimatePresence mode="wait" initial={false}>
         <motion.span
           key={i}
-          initial={{ y: '100%', opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: '-100%', opacity: 0 }}
-          transition={{ type: 'spring', stiffness: 320, damping: 28 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1.1, ease: 'easeInOut' }}
           className="inline-block gradient-text"
         >
           {words[i]}

@@ -13,6 +13,7 @@ import TechIconCloud from '@/components/TechIconCloud'
 import ProductsBanner from '@/components/ProductsBanner'
 import AIShowcase from '@/components/AIShowcase'
 import BriefAssistant from '@/components/BriefAssistant'
+import FeaturedProjectsCarousel from '@/components/FeaturedProjectsCarousel'
 import { getProfile, listProjects, listServices, listTestimonials, listProducts } from '@/lib/queries'
 
 const stats = [
@@ -186,55 +187,13 @@ export default function Home() {
           <div>
             <div className="text-sm text-primary font-medium">Selected work</div>
             <h2 className="text-3xl md:text-5xl font-bold mt-1">Featured projects</h2>
+            <p className="mt-2 text-muted-foreground max-w-xl">Three production apps shipped recently — each tackling a real-world Zimbabwean workflow end-to-end.</p>
           </div>
           <Link to="/projects" className="text-sm text-muted-foreground hover:text-primary hidden md:inline-flex items-center gap-1 group">
             All projects <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
-        {featured.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-border p-12 text-center text-muted-foreground">
-            No featured projects yet. Add some from the admin panel.
-          </div>
-        ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featured.map((p, i) => (
-              <motion.div
-                key={p.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.06 }}
-              >
-                <Link to={`/projects/${p.slug}`} className="group block h-full">
-                  <Card className="overflow-hidden h-full hover:border-primary/60 hover:-translate-y-1.5 transition-all duration-300 shine">
-                    <div className="aspect-video bg-muted overflow-hidden relative">
-                      {p.cover_image_url ? (
-                        <img src={p.cover_image_url} alt={p.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center text-muted-foreground bg-gradient-to-br from-primary/5 to-transparent">
-                          <Code2 size={40} />
-                        </div>
-                      )}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                        <span className="text-white text-sm font-medium inline-flex items-center gap-1">
-                          View case <ArrowRight size={14} />
-                        </span>
-                      </div>
-                    </div>
-                    <CardContent className="p-5">
-                      <h3 className="text-lg font-semibold group-hover:text-primary transition-colors">{p.title}</h3>
-                      <p className="mt-2 text-sm text-muted-foreground line-clamp-2">{p.short_description}</p>
-                      <div className="mt-4 flex flex-wrap gap-1.5">
-                        {(p.tech_stack || []).slice(0, 4).map(t => (
-                          <Badge key={t} variant="secondary">{t}</Badge>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-        )}
+        <FeaturedProjectsCarousel />
       </section>
 
       {/* Featured products */}
