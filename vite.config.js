@@ -1,11 +1,104 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa'
 import path from 'node:path'
 
-export default defineConfig({
+// Dev-mode middleware that mounts /api/chat using the same module that the
+// Netlify Function serves in production. Lets us test the bot locally without
+// installing netlify-cli or running a second server.
+function corsHeaders() {
+  return {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+  }
+}
+
+function askNobyDevApi(env) {
+  return {
+    name: 'ask-noby-dev-api',
+    configureServer(server) {
+      // Surface server-side env vars into process.env so the handler can read
+      // them via the same mechanism it uses in Netlify.
+      process.env.VITE_SUPABASE_URL = env.VITE_SUPABASE_URL || ''
+      process.env.SUPABASE_SERVICE_ROLE_KEY = env.SUPABASE_SERVICE_ROLE_KEY || ''
+
+      // /api/chat — streaming SSE
+      server.middlewares.use('/api/chat', async (req, res) => {
+        // Exact path only — let /api/chat/suggest fall through to the handler below
+        if (req.url && req.url.replace(/\?.*$/, '') !== '/' && req.url.replace(/\?.*$/, '') !== '') return
+        if (req.method === 'OPTIONS') {
+          res.writeHead(204, corsHeaders())
+          return res.end()
+        }
+        if (req.method !== 'POST') {
+          res.writeHead(405, { 'Content-Type': 'application/json' })
+          return res.end(JSON.stringify({ error: 'POST only' }))
+        }
+        let raw = ''
+        for await (const chunk of req) raw += chunk
+        let body = {}
+        try { body = raw ? JSON.parse(raw) : {} }
+        catch {
+          res.writeHead(400, { 'Content-Type': 'application/json' })
+          return res.end(JSON.stringify({ error: 'Invalid JSON' }))
+        }
+        res.writeHead(200, {
+          ...corsHeaders(),
+          'Content-Type': 'text/event-stream; charset=utf-8',
+          'Cache-Control': 'no-cache, no-transform',
+          'Connection': 'keep-alive',
+          'X-Accel-Buffering': 'no',
+        })
+        try {
+          const mod = await server.ssrLoadModule('/netlify/functions/chat.js')
+          const ip = (req.socket?.remoteAddress || 'localhost').replace(/^::ffff:/, '')
+          const userAgent = (req.headers['user-agent'] || '').slice(0, 240)
+          for await (const evt of mod.runChat({ body, ip, userAgent })) {
+            res.write(`data: ${JSON.stringify(evt)}\n\n`)
+          }
+        } catch (err) {
+          console.error('[ask-noby-dev-api]', err)
+          res.write(`data: ${JSON.stringify({ type: 'error', error: err.message || 'Internal error' })}\n\n`)
+        }
+        res.end()
+      })
+
+      // /api/chat/suggest — non-streaming JSON
+      server.middlewares.use('/api/chat/suggest', async (req, res) => {
+        if (req.method === 'OPTIONS') { res.writeHead(204, corsHeaders()); return res.end() }
+        if (req.method !== 'POST') {
+          res.writeHead(405, { 'Content-Type': 'application/json' })
+          return res.end(JSON.stringify({ error: 'POST only' }))
+        }
+        let raw = ''
+        for await (const chunk of req) raw += chunk
+        let body = {}
+        try { body = raw ? JSON.parse(raw) : {} } catch { body = {} }
+        try {
+          const mod = await server.ssrLoadModule('/netlify/functions/suggest.js')
+          const out = await mod.runSuggest({ body })
+          res.writeHead(out.status, { ...corsHeaders(), 'Content-Type': 'application/json' })
+          return res.end(JSON.stringify(out.json))
+        } catch (err) {
+          console.error('[ask-noby-suggest]', err)
+          res.writeHead(500, { 'Content-Type': 'application/json' })
+          return res.end(JSON.stringify({ error: err.message || 'Internal error' }))
+        }
+      })
+    },
+  }
+}
+
+export default defineConfig(({ mode }) => {
+  // Load all env vars (not just VITE_-prefixed) so the dev plugin can wire
+  // service-role secrets into process.env without committing them.
+  const env = loadEnv(mode, process.cwd(), '')
+
+  return {
   plugins: [
+    askNobyDevApi(env),
     react(),
     tailwindcss(),
     VitePWA({
@@ -80,4 +173,5 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  }
 })

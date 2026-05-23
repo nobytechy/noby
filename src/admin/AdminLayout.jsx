@@ -1,5 +1,5 @@
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom'
-import { LayoutDashboard, FolderGit2, Wrench, Sparkles, Users, Mail, User, LogOut, ExternalLink, Star, Package, KeyRound, BarChart3 } from 'lucide-react'
+import { LayoutDashboard, FolderGit2, Wrench, Sparkles, Users, Mail, User, LogOut, ExternalLink, Star, Package, KeyRound, BarChart3, Bot } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useAuth } from '@/context/AuthContext'
 import { cn } from '@/lib/utils'
@@ -16,6 +16,7 @@ const links = [
   { to: '/admin/repos', label: 'Pinned repos', icon: Star },
   { to: '/admin/messages', label: 'Inbox', icon: Mail },
   { to: '/admin/profile', label: 'Profile', icon: User },
+  { to: '/admin/ai', label: 'Ask Noby AI', icon: Bot },
   { to: '/admin/security', label: 'Security', icon: KeyRound },
 ]
 

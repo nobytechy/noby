@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import { Menu, X, Moon, Sun } from 'lucide-react'
+import { Menu, X, Moon, Sun, Sparkles } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from '@/context/ThemeContext'
 import { cn } from '@/lib/utils'
@@ -51,6 +51,17 @@ export default function Header() {
           >
             {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
           </button>
+          <NavLink
+            to="/chat"
+            className={({ isActive }) => cn(
+              'hidden sm:inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors',
+              isActive
+                ? 'border-primary bg-primary/10 text-primary'
+                : 'border-primary/30 bg-primary/5 text-primary hover:bg-primary/10',
+            )}
+          >
+            <Sparkles size={12}/> Ask AI
+          </NavLink>
           <Link
             to="/contact"
             className="hidden md:inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity glow"
@@ -90,6 +101,16 @@ export default function Header() {
                   {l.label}
                 </NavLink>
               ))}
+              <NavLink
+                to="/chat"
+                onClick={() => setOpen(false)}
+                className={({ isActive }) => cn(
+                  'mt-2 inline-flex justify-center items-center gap-1.5 rounded-md border border-primary/30 px-4 py-3 text-sm font-semibold',
+                  isActive ? 'bg-primary/10 text-primary' : 'text-primary bg-primary/5',
+                )}
+              >
+                <Sparkles size={14}/> Ask AI
+              </NavLink>
               <Link
                 to="/contact"
                 onClick={() => setOpen(false)}

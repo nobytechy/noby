@@ -11,6 +11,18 @@
   NODE_VERSION = "20"
   NPM_FLAGS    = "--legacy-peer-deps"
 
+# /api/chat → Netlify Function (Ask Noby streaming endpoint)
+# Keep these BEFORE the SPA fallback so the functions are reached first.
+[[redirects]]
+  from   = "/api/chat"
+  to     = "/.netlify/functions/chat"
+  status = 200
+
+[[redirects]]
+  from   = "/api/chat/suggest"
+  to     = "/.netlify/functions/suggest"
+  status = 200
+
 # SPA fallback — React Router owns routing
 [[redirects]]
   from   = "/*"

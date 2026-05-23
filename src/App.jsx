@@ -10,11 +10,13 @@ import Process from '@/pages/Process'
 import FAQ from '@/pages/FAQ'
 import Products from '@/pages/Products'
 import ProductDetail from '@/pages/ProductDetail'
+import Chat from '@/pages/Chat'
 import NotFound from '@/pages/NotFound'
 
 import Login from '@/admin/Login'
 import AdminLayout from '@/admin/AdminLayout'
 import Dashboard from '@/admin/Dashboard'
+import AiAdmin from '@/admin/AiAdmin'
 import ProjectsAdmin from '@/admin/ProjectsAdmin'
 import ServicesAdmin from '@/admin/ServicesAdmin'
 import SkillsAdmin from '@/admin/SkillsAdmin'
@@ -44,6 +46,7 @@ export default function App() {
         <Route path="process" element={<Process />} />
         <Route path="faq" element={<FAQ />} />
         <Route path="contact" element={<Contact />} />
+        <Route path="chat" element={<Chat />} />
       </Route>
 
       <Route path="/admin/login" element={<Login />} />
@@ -59,6 +62,7 @@ export default function App() {
         <Route path="messages" element={<MessagesAdmin />} />
         <Route path="security" element={<ChangePin />} />
         <Route path="analytics" element={<Analytics />} />
+        <Route path="ai" element={<AiAdmin />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />
