@@ -1,3 +1,8 @@
+# Ask Noby chatbot — function rewrites MUST come before the SPA fallback,
+# otherwise /* matches first and /api/chat returns the 404 page.
+/api/chat            /.netlify/functions/chat     200
+/api/chat/suggest    /.netlify/functions/suggest  200
+
 # SPA fallback for Netlify — every unknown path serves index.html so
 # React Router can take over. Without this, deep links 404 after hard-refresh.
 /*    /index.html   200
