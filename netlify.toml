@@ -11,6 +11,14 @@
   NODE_VERSION = "20"
   NPM_FLAGS    = "--legacy-peer-deps"
 
+# Ask Noby chatbot — serverless functions (ESM, v2 streaming syntax).
+# Without this block Netlify can silently skip the netlify/functions folder
+# in some build setups, which returns the default 404 page when /api/chat
+# is requested. Be explicit.
+[functions]
+  directory     = "netlify/functions"
+  node_bundler  = "esbuild"
+
 # /api/chat → Netlify Function (Ask Noby streaming endpoint)
 # Keep these BEFORE the SPA fallback so the functions are reached first.
 [[redirects]]
