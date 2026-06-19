@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
 import { Download, MapPin, Mail } from 'lucide-react'
 import SEO from '@/components/SEO'
+import PageHero from '@/components/PageHero'
 import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
 import { getProfile, listSkills } from '@/lib/queries'
@@ -28,14 +28,14 @@ export default function About() {
     <>
       <SEO title="About" path="/about" description={profile?.bio?.slice(0, 160)} />
 
-      <section className="container-x py-16 md:py-24">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-3xl">
-          <div className="text-sm text-muted-foreground">About me</div>
-          <h1 className="text-4xl md:text-5xl font-bold mt-2">{profile?.full_name || 'Noby'}</h1>
-          <p className="mt-2 text-xl text-muted-foreground">{profile?.headline}</p>
-        </motion.div>
+      <PageHero
+        eyebrow="About me"
+        title={profile?.full_name || 'Noby'}
+        subtitle={profile?.headline}
+      />
 
-        <div className="mt-12 grid md:grid-cols-3 gap-12">
+      <section className="container-x py-16 md:py-24">
+        <div className="grid md:grid-cols-3 gap-12">
           <div className="md:col-span-1">
             <div className="aspect-square rounded-2xl overflow-hidden bg-muted">
               {profile?.headshot_url ? (

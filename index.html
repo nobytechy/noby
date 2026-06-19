@@ -4,6 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
+    <!-- Default to dark mode (respect a saved choice); applied before paint to avoid a flash -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('noby-theme') || 'dark';
+          if (t === 'dark') document.documentElement.classList.add('dark');
+        } catch (e) { document.documentElement.classList.add('dark'); }
+      })();
+    </script>
+
     <!-- Primary -->
     <title>Noby — Full-Stack Developer</title>
     <meta name="description" content="Full-stack developer shipping software end-to-end — frontend, backend, databases, payments, and deployment. Available for direct-client projects." />
@@ -17,8 +27,8 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
 
     <!-- Theme -->
-    <meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#5b6cff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0f0d0e" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#9C1C2A" media="(prefers-color-scheme: light)" />
     <meta name="color-scheme" content="light dark" />
 
     <!-- Open Graph (Facebook, WhatsApp, LinkedIn, Slack, Discord) -->
@@ -51,7 +61,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
     <!-- Structured data -->
     <script type="application/ld+json">

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Package, ArrowRight, ImageIcon } from 'lucide-react'
 import SEO from '@/components/SEO'
+import PageHero from '@/components/PageHero'
 import { Card, CardContent } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
@@ -36,16 +37,13 @@ export default function Products() {
         description="Pre-built systems you can buy and deploy in days, not months. HR, hospital, school, hotel, e-commerce — full source code, one-time payment."
       />
 
-      <section className="container-x py-16 md:py-24">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl">
-          <div className="text-sm text-primary font-medium">Ready to ship</div>
-          <h1 className="text-4xl md:text-5xl font-bold mt-2">Pre-built systems for sale</h1>
-          <p className="mt-4 text-lg text-muted-foreground">
-            Tested, production-ready systems you can deploy in days instead of building from scratch.
-            One-time payment, full source code, you own it forever.
-          </p>
-        </motion.div>
+      <PageHero
+        eyebrow="Ready to ship"
+        title="Pre-built Systems"
+        subtitle="Tested, production-ready systems you can deploy in days instead of building from scratch. One-time payment, full source code, you own it forever."
+      />
 
+      <section className="container-x py-16 md:py-24">
         {/* Category filter */}
         {categories.length > 1 && (
           <div className="mt-8 flex flex-wrap gap-2">

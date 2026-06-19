@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { Code2, ExternalLink } from 'lucide-react'
 import { GithubIcon } from '@/components/BrandIcons'
 import SEO from '@/components/SEO'
+import PageHero from '@/components/PageHero'
 import { Card, CardContent } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
 import { listProjects } from '@/lib/queries'
@@ -26,13 +27,13 @@ export default function Projects() {
     <>
       <SEO title="Projects" path="/projects" description="Selected web development projects by Noby." />
 
-      <section className="container-x py-16 md:py-24">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl">
-          <div className="text-sm text-muted-foreground">Portfolio</div>
-          <h1 className="text-4xl md:text-5xl font-bold mt-2">Projects</h1>
-          <p className="mt-4 text-lg text-muted-foreground">A selection of work I've shipped.</p>
-        </motion.div>
+      <PageHero
+        eyebrow="Portfolio"
+        title="Projects"
+        subtitle="A selection of work I've shipped — production apps solving real Zimbabwean workflows end to end."
+      />
 
+      <section className="container-x py-16 md:py-24">
         {tags.length > 1 && (
           <div className="mt-8 flex flex-wrap gap-2">
             {tags.map(t => (

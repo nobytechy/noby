@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Layers, ArrowRight, Globe, Smartphone, Code2, Wrench, Cpu } from 'lucide-react'
 import SEO from '@/components/SEO'
+import PageHero from '@/components/PageHero'
 import { Card, CardContent } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { listServices } from '@/lib/queries'
@@ -27,17 +28,14 @@ export default function Services() {
     <>
       <SEO title="Services" path="/services" description="Web, mobile, and payment integration services for direct clients. Starting prices listed." />
 
-      <section className="container-x py-16 md:py-24">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl">
-          <div className="text-sm text-primary font-medium">What I offer</div>
-          <h1 className="text-4xl md:text-5xl font-bold mt-2">Services & pricing</h1>
-          <p className="mt-4 text-lg text-muted-foreground">
-            Fixed-quote, milestone-based projects. No hourly rates, no surprises.
-            Prices below are starting points — final quote follows the discovery call.
-          </p>
-        </motion.div>
+      <PageHero
+        eyebrow="What I offer"
+        title="Services & Pricing"
+        subtitle="Fixed-quote, milestone-based projects. No hourly rates, no surprises. Prices below are starting points — final quote follows the discovery call."
+      />
 
-        <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <section className="container-x py-16 md:py-24">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {services === null ? (
             <div className="col-span-full p-12 flex justify-center">
               <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />

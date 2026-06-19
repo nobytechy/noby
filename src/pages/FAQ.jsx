@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown, ArrowRight } from 'lucide-react'
 import SEO from '@/components/SEO'
+import PageHero from '@/components/PageHero'
 import { Button } from '@/components/ui/Button'
 import { cn } from '@/lib/utils'
 
@@ -66,16 +67,14 @@ export default function FAQ() {
     <>
       <SEO title="FAQ" path="/faq" description="Common questions about pricing, timelines, ownership, support and how to start a project." jsonLd={jsonLd} />
 
-      <section className="container-x py-16 md:py-24">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl">
-          <div className="text-sm text-primary font-medium">Frequently asked</div>
-          <h1 className="text-4xl md:text-5xl font-bold mt-2">Questions, answered straight.</h1>
-          <p className="mt-4 text-lg text-muted-foreground">
-            If your question isn't here, the discovery call is free — ask me anything.
-          </p>
-        </motion.div>
+      <PageHero
+        eyebrow="Frequently asked"
+        title="Questions, Answered Straight"
+        subtitle="If your question isn't here, the discovery call is free — ask me anything."
+      />
 
-        <div className="mt-12 max-w-3xl divide-y divide-border border-y border-border">
+      <section className="container-x py-16 md:py-24">
+        <div className="max-w-3xl divide-y divide-border border-y border-border">
           {faqs.map((f, i) => {
             const isOpen = open === i
             return (

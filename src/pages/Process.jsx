@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { MessageCircle, FileText, Code2, Rocket, LifeBuoy, ArrowRight, CheckCircle2 } from 'lucide-react'
 import SEO from '@/components/SEO'
+import PageHero from '@/components/PageHero'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent } from '@/components/ui/Card'
 
@@ -51,17 +52,13 @@ export default function Process() {
     <>
       <SEO title="How I work" path="/process" description="My 5-step process for direct-client projects: discovery, fixed quote, weekly demos, launch, 30 days support." />
 
-      <section className="container-x py-16 md:py-24">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl">
-          <div className="text-sm text-primary font-medium">How I work</div>
-          <h1 className="text-4xl md:text-5xl font-bold mt-2">Five steps from idea to live site.</h1>
-          <p className="mt-4 text-lg text-muted-foreground">
-            Most direct clients have been burned by a developer once. That's why my process
-            is structured, transparent, and milestone-based — so you always know what's
-            happening, what's next, and what it costs.
-          </p>
-        </motion.div>
+      <PageHero
+        eyebrow="How I work"
+        title="Five Steps From Idea To Live"
+        subtitle="Most direct clients have been burned by a developer once. That's why my process is structured, transparent, and milestone-based — so you always know what's happening, what's next, and what it costs."
+      />
 
+      <section className="container-x py-16 md:py-24">
         {/* Steps */}
         <div className="mt-12 space-y-4">
           {steps.map((s, i) => (

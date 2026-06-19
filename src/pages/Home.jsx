@@ -9,11 +9,9 @@ import { Card, CardContent } from '@/components/ui/Card'
 import RotatingWords from '@/components/RotatingWords'
 import AnimatedBlobs from '@/components/AnimatedBlobs'
 import ClientLogos from '@/components/ClientLogos'
-import TechIconCloud from '@/components/TechIconCloud'
 import ProductsBanner from '@/components/ProductsBanner'
-import AIShowcase from '@/components/AIShowcase'
-import BriefAssistant from '@/components/BriefAssistant'
 import FeaturedProjectsCarousel from '@/components/FeaturedProjectsCarousel'
+import SdlcOrbit from '@/components/SdlcOrbit'
 import { getProfile, listProjects, listServices, listTestimonials, listProducts } from '@/lib/queries'
 
 const stats = [
@@ -73,8 +71,8 @@ export default function Home() {
       {/* Hero */}
       <section className="relative">
         <AnimatedBlobs />
-        <div className="container-x py-24 md:py-36">
-          <motion.div initial="hidden" animate="show" variants={stagger} className="max-w-3xl">
+        <div className="container-x py-20 md:py-28 grid items-center gap-10 lg:grid-cols-[1.5fr_1fr]">
+          <motion.div initial="hidden" animate="show" variants={stagger} className="max-w-2xl">
             <motion.div variants={fadeUp}>
               <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-xs font-medium text-primary ring-pulse">
                 <span className="relative flex size-2">
@@ -85,11 +83,12 @@ export default function Home() {
               </span>
             </motion.div>
 
-            <motion.h1 variants={fadeUp} className="mt-6 text-5xl md:text-7xl font-bold tracking-tight leading-[1.05]">
-              I build <RotatingWords
+            <motion.h1 variants={fadeUp} className="mt-5 text-3xl sm:text-4xl md:text-5xl font-bold uppercase tracking-tight leading-[1.08]">
+              I build{' '}
+              <RotatingWords
+                className="whitespace-nowrap"
                 words={['websites', 'web apps', 'mobile apps', 'payment integrations']}
-              />
-              <br />
+              />{' '}
               that <span className="gradient-text">actually work</span> in Africa.
             </motion.h1>
 
@@ -115,11 +114,17 @@ export default function Home() {
               ))}
             </motion.div>
           </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
+            className="hidden lg:block"
+          >
+            <SdlcOrbit />
+          </motion.div>
         </div>
       </section>
-
-      {/* Tech icon cloud */}
-      <TechIconCloud />
 
       {/* Stats */}
       <section className="container-x py-16">
@@ -148,7 +153,7 @@ export default function Home() {
         <section className="container-x py-20">
           <div className="flex items-end justify-between mb-10">
             <div>
-              <div className="text-sm text-primary font-medium">What I do</div>
+              <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">What I do</div>
               <h2 className="text-3xl md:text-5xl font-bold mt-1">Services I offer</h2>
             </div>
             <Link to="/services" className="text-sm text-muted-foreground hover:text-primary hidden md:inline-flex items-center gap-1 group">
@@ -156,7 +161,7 @@ export default function Home() {
             </Link>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {services.slice(0, 6).map((s, i) => {
+            {services.slice(0, 3).map((s, i) => {
               const Icon = serviceIcons[s.icon] || serviceIcons.default
               return (
                 <motion.div
@@ -185,7 +190,7 @@ export default function Home() {
       <section className="container-x py-20">
         <div className="flex items-end justify-between mb-10">
           <div>
-            <div className="text-sm text-primary font-medium">Selected work</div>
+            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">Selected work</div>
             <h2 className="text-3xl md:text-5xl font-bold mt-1">Featured projects</h2>
             <p className="mt-2 text-muted-foreground max-w-xl">Three production apps shipped recently — each tackling a real-world Zimbabwean workflow end-to-end.</p>
           </div>
@@ -201,7 +206,7 @@ export default function Home() {
         <section className="container-x py-20">
           <div className="flex items-end justify-between mb-10">
             <div>
-              <div className="text-sm text-primary font-medium">Ready to ship</div>
+              <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">Ready to ship</div>
               <h2 className="text-3xl md:text-5xl font-bold mt-1">Pre-built systems for sale</h2>
               <p className="mt-2 text-muted-foreground max-w-xl">Skip the build. Buy a tested system, deploy in days, own the source forever.</p>
             </div>
@@ -254,15 +259,11 @@ export default function Home() {
         </section>
       )}
 
-      {/* AI showcase + interactive brief generator */}
-      <AIShowcase />
-      <BriefAssistant />
-
       {/* Testimonials */}
       {testimonials.length > 0 && (
         <section className="container-x py-20">
           <div className="text-center mb-12">
-            <div className="text-sm text-primary font-medium">Client words</div>
+            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">Client words</div>
             <h2 className="text-3xl md:text-5xl font-bold mt-1">What clients say</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-6">

@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import { motion } from 'framer-motion'
 import toast from 'react-hot-toast'
 import { Mail, MapPin, Phone, Send, Clock } from 'lucide-react'
 import SEO from '@/components/SEO'
+import PageHero from '@/components/PageHero'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { Textarea } from '@/components/ui/Textarea'
@@ -99,17 +99,14 @@ export default function Contact() {
     <>
       <SEO title="Contact" path="/contact" description="Get in touch about a project. 24-hour response, fixed quotes." />
 
-      <section className="container-x py-16 md:py-24">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl">
-          <div className="text-sm text-primary font-medium">Get in touch</div>
-          <h1 className="text-4xl md:text-5xl font-bold mt-2">Let's build something.</h1>
-          <p className="mt-4 text-lg text-muted-foreground">
-            Tell me about your project — even a rough idea is fine. I respond within 24 hours
-            with either a discovery-call invite or a referral if it's not a fit.
-          </p>
-        </motion.div>
+      <PageHero
+        eyebrow="Get in touch"
+        title="Let's Build Something"
+        subtitle="Tell me about your project — even a rough idea is fine. I respond within 24 hours with either a discovery-call invite or a referral if it's not a fit."
+      />
 
-        <div className="mt-12 grid md:grid-cols-3 gap-12">
+      <section className="container-x py-16 md:py-24">
+        <div className="grid md:grid-cols-3 gap-12">
           <div className="md:col-span-1 space-y-5 text-sm">
             <div className="flex items-start gap-3">
               <Mail size={18} className="mt-0.5 text-primary" />
