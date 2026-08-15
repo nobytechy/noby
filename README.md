@@ -1,21 +1,40 @@
-# Noby Portfolio
+# Noby Tebulo — Portfolio
 
-Modern React portfolio with admin panel for editing all content.
-Live: https://noby.aizim.co.zw
+Personal portfolio of **Noby Tebulo** — full-stack & fintech developer, builder of
+[ManishaPay](https://manishapay.netlify.app) (11-gateway payment platform) and
+[ManishaAI](https://manishapay.netlify.app/ai) (multilingual payments assistant).
+
+**Live: https://nobie.netlify.app**
+
+A modern React SPA with a Supabase-backed admin panel — every section (profile,
+projects, services, skills, testimonials, inbox) is editable from `/admin` with
+sensible hardcoded fallbacks, so the site looks complete even before content is
+loaded.
+
+## Highlights
+
+- **Featured work** — curated carousel leading with ManishaPay & ManishaAI,
+  plus client platforms (school MIS, real-estate, church management)
+- **Admin panel** — full CRUD for all content behind Supabase Auth + RLS
+- **Brief Assistant** — AI-assisted project brief capture on the contact flow
+- **PWA** — installable, offline-capable, update prompts
+- **SEO** — per-page meta via `react-helmet-async`, OG/Twitter cards, JSON-LD,
+  sitemap, canonical domain `nobie.netlify.app`
+- **Analytics** — lightweight first-party page tracking to Supabase
 
 ## Stack
-- React 18 + Vite + plain JavaScript
-- Tailwind CSS v4
-- Framer Motion
-- Supabase (Auth + Postgres + Storage)
-- Radix UI primitives + custom shadcn-style components
-- React Router v6, react-helmet-async, lucide-react, react-hot-toast
+
+- React 19 + Vite (plain JavaScript)
+- Tailwind CSS v4 · Framer Motion · Radix UI primitives (shadcn-style components)
+- Supabase — Auth, Postgres (RLS), Storage
+- React Router v6 · react-hook-form · react-hot-toast · lucide-react
+- vite-plugin-pwa (Workbox)
 
 ## Local development
 
 ```bash
-npm install
-cp .env.example .env.local   # then fill in Supabase URL + anon key
+npm install --legacy-peer-deps   # (vite-plugin-pwa peer range vs Vite 8)
+cp .env.example .env.local       # fill in Supabase URL + anon key
 npm run dev
 ```
 
@@ -25,81 +44,64 @@ Open http://localhost:5173.
 
 1. Create a project at supabase.com (free tier).
 2. **SQL Editor → New query**, paste `supabase/schema.sql`, **Run**.
-3. **Authentication → Users → Add user**: enter your admin email + a strong password.
-4. **Project Settings → API**: copy the Project URL and `anon` public key into `.env.local`:
+3. **Authentication → Users → Add user**: your admin email + a strong password.
+4. **Project Settings → API**: copy the Project URL and `anon` key into `.env.local`:
    ```
    VITE_SUPABASE_URL=...
    VITE_SUPABASE_ANON_KEY=...
-   VITE_SITE_URL=https://noby.aizim.co.zw
+   VITE_SITE_URL=https://nobie.netlify.app
    ```
-5. Run the app, visit `/admin/login`, log in. Edit your profile, then add projects, services, skills, testimonials.
+5. Run the app, visit `/admin/login`, sign in, and load your content.
 
-## Build for production
-
-```bash
-npm run build
-```
-
-This produces `dist/` containing static HTML + assets. Includes `.htaccess`, `robots.txt`, `sitemap.xml`.
-
-## Deploy to cPanel (noby.aizim.co.zw)
-
-One-command deploy via SSH:
+## Build & deploy
 
 ```bash
-npm run deploy
+npm run build   # → dist/ (static assets + sw.js, robots.txt, sitemap.xml)
 ```
 
-Builds locally, then `tar | ssh` streams `dist/` contents into `public_html/noby/`
-on the cPanel server. Smoke-tests https://noby.aizim.co.zw afterwards.
+**Primary deploy — Netlify:** connected to this repo; every push to `main`
+auto-builds and deploys to https://nobie.netlify.app (`netlify.toml` holds the
+build settings + SPA redirects).
 
-### Prerequisites (one-time)
-The script uses an SSH host alias `aizim`. Add this to `~/.ssh/config`:
-
-```
-Host aizim
-  HostName ssh.us.stackcp.com
-  Port 22
-  User aizim.co.zw
-  IdentityFile ~/.ssh/aizim_cpanel
-  IdentitiesOnly yes
-  StrictHostKeyChecking accept-new
-```
-
-…and place the matching private key at `~/.ssh/aizim_cpanel` (chmod 600).
-Test once with `ssh aizim "pwd"` — should print `/home/sites/...`.
-
-### Manual deploy (no SSH)
-If SSH is unavailable, build with `npm run build` and upload the contents of
-`dist/` to `public_html/noby/` via cPanel File Manager — make sure `.htaccess`
-is included for SPA routing to work on deep links like `/services` or
-`/products/foo`.
+**Alternate deploy — cPanel:** `npm run deploy` streams `dist/` over SSH to a
+cPanel host (see `scripts/`; requires an SSH host alias — kept for when the
+site moves to a custom domain on cPanel hosting). Without SSH, upload `dist/`
+via File Manager and keep `.htaccess` for SPA deep links.
 
 ## Admin panel
 
-`/admin/login` — once signed in, you can manage:
+`/admin/login` — manage:
+
 - **Profile** — name, headline, bio, headshot, resume, socials, contact info
-- **Projects** — full CRUD with cover images, tags, tech stack, GitHub/live URLs, featured toggle
-- **Services**, **Skills**, **Testimonials** — simple CRUD
-- **Inbox** — read/reply/delete contact form messages
+- **Projects** — full CRUD: cover images, tags, tech stack, GitHub/live URLs, featured toggle
+- **Services · Skills · Testimonials** — simple CRUD
+- **Inbox** — read/reply/delete contact-form messages
 
 ## Security notes
-- Service role key is **never** used in this app; everything goes through `anon` + RLS policies.
-- Don't commit `.env.local` (it's gitignored).
-- Rotate the admin password before launch via Supabase dashboard → Auth → Users.
+
+- The service-role key is **never** used in this app — everything goes through
+  the `anon` key + RLS policies.
+- `.env.local` is gitignored; never commit it.
+- Rotate the admin password before launch (Supabase → Auth → Users).
 
 ## Project structure
 
 ```
 src/
-├── components/        ui/, layout/, ProtectedRoute.jsx, SEO.jsx
+├── components/        ui/, layout/, SEO.jsx, FeaturedProjectsCarousel.jsx, …
 ├── context/           AuthContext, ThemeContext
 ├── lib/               supabase.js, queries.js, utils.js
-├── pages/             Home, About, Services, Projects, ProjectDetail, Contact, NotFound
-├── admin/             Login, AdminLayout, Dashboard, ProjectsAdmin, etc.
+├── pages/             Home, About, Services, Projects, Products, Contact, …
+├── admin/             Login, AdminLayout, Dashboard, ProjectsAdmin, …
 ├── App.jsx            routes
 ├── main.jsx           providers
 └── index.css          Tailwind v4 + theme
-supabase/schema.sql    run this once in Supabase SQL editor
-public/                .htaccess, robots.txt, sitemap.xml
+supabase/schema.sql    run once in the Supabase SQL editor
+netlify/               serverless functions
+public/                .htaccess, robots.txt, sitemap.xml, PWA assets
 ```
+
+---
+
+**Contact:** nobytechy@gmail.com · [wa.me/263774603865](https://wa.me/263774603865) ·
+[GitHub](https://github.com/nobytechy) · Built and maintained by Noby Tebulo.
