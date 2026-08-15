@@ -78,6 +78,13 @@ export default function Footer() {
                 </a>
               )}
             </div>
+            <a
+              href="https://manishapay.netlify.app/ai"
+              target="_blank" rel="noreferrer"
+              className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:underline"
+            >
+              ✨ Ask my AI about payments →
+            </a>
           </div>
         </div>
       </div>

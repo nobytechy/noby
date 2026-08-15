@@ -1,10 +1,10 @@
 import { Helmet } from 'react-helmet-async'
 
-const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://noby.aizim.co.zw').replace(/\/$/, '')
+const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://nobie.netlify.app').replace(/\/$/, '')
 const DEFAULT_TITLE = 'Noby — Full-Stack Developer'
-const DEFAULT_DESC = 'Full-stack developer shipping software end-to-end — frontend, backend, databases, payments, and deployment. Available for direct-client projects.'
+const DEFAULT_DESC = 'Full-stack developer shipping software end-to-end — builder of ManishaPay (11-gateway payment platform) and ManishaAI. Web, mobile, ERP, payments and AI. Available for direct-client projects.'
 const DEFAULT_IMG = `${SITE_URL}/og-image-v2.png`
-const DEFAULT_IMG_ALT = 'Noby — Full-Stack Developer · noby.aizim.co.zw'
+const DEFAULT_IMG_ALT = 'Noby Tebulo — Full-Stack & Fintech Developer · nobie.netlify.app'
 
 export default function SEO({ title, description, path = '/', image, imageAlt, jsonLd }) {
   const fullTitle = title ? `${title} — Noby` : DEFAULT_TITLE

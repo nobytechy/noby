@@ -87,7 +87,7 @@ export default function Home() {
               I build{' '}
               <RotatingWords
                 className="whitespace-nowrap"
-                words={['websites', 'web apps', 'mobile apps', 'payment integrations']}
+                words={['websites', 'web apps', 'mobile apps', 'payment platforms', 'AI assistants']}
               />{' '}
               that <span className="gradient-text">actually work</span> in Africa.
             </motion.h1>
@@ -111,6 +111,20 @@ export default function Home() {
                 <span key={item} className="inline-flex items-center gap-2">
                   <CheckCircle2 size={14} className="text-primary" /> {item}
                 </span>
+              ))}
+            </motion.div>
+
+            <motion.div variants={fadeUp} className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl">
+              {[
+                ['7+ yrs', 'production software'],
+                ['11', 'gateways on ManishaPay'],
+                ['219', 'automated tests live'],
+                ['90%', 'stock-loss cut for a client'],
+              ].map(([v, l]) => (
+                <div key={l} className="rounded-xl border border-border bg-card/60 px-4 py-3">
+                  <div className="text-xl font-bold text-primary">{v}</div>
+                  <div className="mt-0.5 text-xs text-muted-foreground leading-snug">{l}</div>
+                </div>
               ))}
             </motion.div>
           </motion.div>

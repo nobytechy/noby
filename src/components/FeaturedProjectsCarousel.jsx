@@ -12,6 +12,30 @@ import { Badge } from '@/components/ui/Badge'
  */
 const PROJECTS = [
   {
+    slug: 'manishapay',
+    title: 'ManishaPay',
+    tagline: 'Payment gateway aggregator — solo-built',
+    description:
+      'One REST API and no-code payment links across 11 gateways — PayNow, Stripe, PayPal, M-Pesa, Paystack and more. Hosted checkout, drop-in widget, signed webhooks, SDKs, WordPress & WHMCS plugins. 219 automated tests in production.',
+    tech: ['Node.js', 'React 19', 'Supabase', '11 gateways', 'HMAC webhooks', 'SDKs'],
+    liveUrl: 'https://manishapay.netlify.app',
+    accent: 'from-emerald-500/30 via-teal-400/10 to-transparent',
+    badge: 'from-emerald-600 to-green-700',
+    initials: 'MP',
+  },
+  {
+    slug: 'manishaai',
+    title: 'ManishaAI',
+    tagline: 'Multilingual payments AI assistant',
+    description:
+      'A free RAG-powered assistant grounded in real gateway documentation and 70+ documented pain points. Cites sources, writes integration code on tap, includes a client-side webhook debugger — and answers in English, Shona, Ndebele and Swahili.',
+    tech: ['RAG', 'BM25', 'LLM', 'React 19', 'Node.js', '4 languages'],
+    liveUrl: 'https://manishapay.netlify.app/ai',
+    accent: 'from-teal-500/30 via-emerald-400/10 to-transparent',
+    badge: 'from-teal-600 to-emerald-700',
+    initials: 'AI',
+  },
+  {
     slug: 'ridgecrest',
     title: 'Ridgecrest Junior School',
     tagline: 'Primary-school information system',
@@ -28,7 +52,7 @@ const PROJECTS = [
     title: 'Zim Properties',
     tagline: 'Real-estate management platform',
     description:
-      'Listings, leases, tenants, inspections, maintenance and ledger accounting in one app. Staff sign in with a PIN, tenants get their own portal, and rent flows through PayNow via the ManishaPay middleware.',
+      'Listings, leases, tenants, inspections, maintenance and ledger accounting in one app. Staff sign in with a PIN, tenants get their own portal, and rent is collected through PayNow via ManishaPay, my own payment platform.',
     tech: ['React 19', 'Vite', 'Tailwind v4', 'Supabase', 'PayNow', 'ManishaPay'],
     liveUrl: 'https://dzimba.netlify.app',
     accent: 'from-slate-500/30 via-slate-400/10 to-transparent',
