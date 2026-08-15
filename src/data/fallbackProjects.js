@@ -41,6 +41,21 @@ export const FALLBACK_PROJECTS = [
     client_name: null,
   },
   {
+    id: 'fb-orinon',
+    slug: 'orinon-creditmarket',
+    title: 'Orinon — Credit & Cash Commerce Platform',
+    short_description:
+      'Buy-now-pay-later storefront for a tech retailer: curated catalog, KYC in minutes, credit applications with real-time status — plus a cash store for instant checkout.',
+    long_description:
+      'A dual-storefront commerce platform for Orinon, a Zimbabwean tech retailer, live on their own domain. The credit side lets customers browse curated products, complete KYC in minutes, and apply for flexible credit with transparent terms and real-time application tracking. The cash side serves the same catalog for instant upfront checkout.\n\nBuilt with multi-language support, light/dark themes, product search and filtering across 39+ products, and a clean separation between the credit workflow (applications, approvals, tracking) and the classic e-commerce flow.',
+    tech_stack: ['React', 'Tailwind', 'KYC flow', 'Credit applications', 'E-commerce', 'i18n'],
+    tags: ['Fintech', 'E-commerce', 'Client'],
+    live_url: 'https://credit.orinonstore.co.zw',
+    github_url: 'https://github.com/nobytechy/CreditMarket',
+    cover_image_url: '/projects/orinon.jpg',
+    client_name: 'Orinon Store',
+  },
+  {
     id: 'fb-smartsnap',
     slug: 'smartsnap',
     title: 'SmartSnap — AI CCTV Alerting Platform',
