@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
 import { GithubIcon } from '@/components/BrandIcons'
 import { getProjectBySlug } from '@/lib/queries'
+import { fallbackProjectBySlug } from '@/data/fallbackProjects'
 
 export default function ProjectDetail() {
   const { slug } = useParams()
@@ -15,7 +16,16 @@ export default function ProjectDetail() {
 
   useEffect(() => {
     setError(null); setProject(null)
-    getProjectBySlug(slug).then(setProject).catch(setError)
+    getProjectBySlug(slug)
+      .then((row) => {
+        if (row) return setProject(row)
+        const fb = fallbackProjectBySlug(slug)
+        fb ? setProject(fb) : setError(new Error('not found'))
+      })
+      .catch(() => {
+        const fb = fallbackProjectBySlug(slug)
+        fb ? setProject(fb) : setError(new Error('not found'))
+      })
   }, [slug])
 
   if (error) {

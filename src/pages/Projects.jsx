@@ -8,12 +8,17 @@ import PageHero from '@/components/PageHero'
 import { Card, CardContent } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
 import { listProjects } from '@/lib/queries'
+import { FALLBACK_PROJECTS } from '@/data/fallbackProjects'
 
 export default function Projects() {
   const [projects, setProjects] = useState([])
   const [filter, setFilter] = useState('all')
 
-  useEffect(() => { listProjects().then(setProjects).catch(() => {}) }, [])
+  useEffect(() => {
+    listProjects()
+      .then((rows) => setProjects(rows && rows.length ? rows : FALLBACK_PROJECTS))
+      .catch(() => setProjects(FALLBACK_PROJECTS))
+  }, [])
 
   const tags = useMemo(() => {
     const set = new Set()
