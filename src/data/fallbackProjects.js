@@ -22,7 +22,7 @@ export const FALLBACK_PROJECTS = [
     tags: ['Fintech', 'API', 'Platform'],
     live_url: 'https://manishapay.netlify.app',
     github_url: 'https://github.com/nobytechy/manishapay',
-    cover_image_url: null,
+    cover_image_url: '/projects/manishapay.jpg',
     client_name: null,
   },
   {
@@ -37,7 +37,7 @@ export const FALLBACK_PROJECTS = [
     tags: ['AI', 'Fintech'],
     live_url: 'https://manishapay.netlify.app/ai',
     github_url: null,
-    cover_image_url: null,
+    cover_image_url: '/projects/manishaai.jpg',
     client_name: null,
   },
   {
@@ -52,7 +52,7 @@ export const FALLBACK_PROJECTS = [
     tags: ['AI', 'Platform'],
     live_url: 'https://smartsnap.netlify.app',
     github_url: null,
-    cover_image_url: null,
+    cover_image_url: '/projects/smartsnap.jpg',
     client_name: null,
   },
   {
@@ -67,7 +67,7 @@ export const FALLBACK_PROJECTS = [
     tags: ['ERP', 'PWA', 'Education'],
     live_url: 'https://ridgecrest.netlify.app',
     github_url: null,
-    cover_image_url: null,
+    cover_image_url: '/projects/ridgecrest.jpg',
     client_name: null,
   },
   {
@@ -82,7 +82,7 @@ export const FALLBACK_PROJECTS = [
     tags: ['ERP', 'PWA', 'Fintech'],
     live_url: 'https://dzimba.netlify.app',
     github_url: null,
-    cover_image_url: null,
+    cover_image_url: '/projects/dzimba.jpg',
     client_name: null,
   },
   {
@@ -97,7 +97,7 @@ export const FALLBACK_PROJECTS = [
     tags: ['Platform', 'Mobile', 'Logistics'],
     live_url: 'https://fambah.netlify.app',
     github_url: null,
-    cover_image_url: null,
+    cover_image_url: '/projects/famba-fleet.jpg',
     client_name: null,
   },
   {
@@ -110,9 +110,9 @@ export const FALLBACK_PROJECTS = [
       'A church management and member-engagement platform: sermons, events, a prayer wall, tithes and expense tracking, member directory and pastoral notes.\n\nMembers sign in by phone number; administrators use a PIN-only console. Giving is powered by PayNow, and the whole app installs as a PWA.',
     tech_stack: ['React', 'Vite', 'Tailwind', 'Supabase', 'PayNow', 'PWA'],
     tags: ['ERP', 'PWA', 'Community'],
-    live_url: 'https://churchzim.netlify.app',
+    live_url: 'https://kereke.netlify.app',
     github_url: null,
-    cover_image_url: null,
+    cover_image_url: '/projects/churchzim.jpg',
     client_name: null,
   },
   {
@@ -124,10 +124,10 @@ export const FALLBACK_PROJECTS = [
     long_description:
       'A coach-travel booking website (concept/proposal build): responsive marketing pages presenting routes and services, paired with a working online booking and reservations UI.\n\nDemonstrates the full public-website-plus-booking pattern that transport operators need, installable as a PWA.',
     tech_stack: ['React', 'Tailwind', 'Booking flow', 'PWA'],
-    tags: ['PWA', 'Booking'],
+    tags: ['Concept', 'PWA', 'Booking'],
     live_url: 'https://cagtours.netlify.app',
     github_url: null,
-    cover_image_url: null,
+    cover_image_url: '/projects/cag-travellers.jpg',
     client_name: null,
   },
   {
@@ -142,7 +142,37 @@ export const FALLBACK_PROJECTS = [
     tags: ['Fintech', 'Compliance', 'PWA'],
     live_url: 'https://zimrafdms.netlify.app',
     github_url: 'https://github.com/nobytechy/zimraFDMS',
-    cover_image_url: null,
+    cover_image_url: '/projects/zimfdms.jpg',
+    client_name: null,
+  },
+  {
+    id: 'fb-vytt',
+    slug: 'vytt',
+    title: 'VYTT — Restaurant & Butchery',
+    short_description:
+      '"Great food. Great service. Always fresh." Concept site for a restaurant, braai area and conference centre — bookings, menu and bilingual UI.',
+    long_description:
+      'A concept/pitch build for VYTT, a restaurant, butchery and conference venue at Gutu Junction: table bookings, menu showcase, conference-room hire and gallery, wrapped in a bold hospitality design.\n\nBuilt around their own standard — "Great food. Great service. Always fresh." — with a bilingual interface, WhatsApp contact and delivery ordering baked in.',
+    tech_stack: ['React', 'Tailwind', 'Bookings', 'i18n', 'PWA'],
+    tags: ['Concept', 'Hospitality'],
+    live_url: 'https://vytt.netlify.app',
+    github_url: null,
+    cover_image_url: '/projects/vytt.jpg',
+    client_name: null,
+  },
+  {
+    id: 'fb-hibred',
+    slug: 'hibred-chicks',
+    title: 'Hi-Bred Chicks — Poultry Brand & Ordering',
+    short_description:
+      'Concept site for a day-old-chicks supplier: breed showcase with live pricing, ordering flow, and a design built to grow into a farm-management ERP.',
+    long_description:
+      'A concept/pitch build for Hi-Bred Chicks, a poultry producer expanding across SADC: breed cards with live pricing (broilers and layers), an order-now flow, services and WhatsApp contact — presented in a warm agricultural brand language.\n\nDeliberately architected to scale into a complete farm-management ERP as the next phase: hatchery batches, vaccinations, orders and deliveries.',
+    tech_stack: ['React', 'Tailwind', 'Ordering flow', 'PWA'],
+    tags: ['Concept', 'Agritech'],
+    live_url: 'https://hibred.netlify.app',
+    github_url: null,
+    cover_image_url: '/projects/hibred-chicks.jpg',
     client_name: null,
   },
   {
