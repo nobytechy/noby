@@ -1,0 +1,463 @@
+{
+  "hollies-jameson-thursdays": {
+    "folder": "01-hospitality-flyer",
+    "files": [
+      {
+        "name": "00-FINAL-jameson-thursdays.png",
+        "size": 1689566,
+        "kind": "final",
+        "preview": "/designs/hollies-jameson.jpg"
+      },
+      {
+        "name": "01-background.png",
+        "size": 33922,
+        "kind": "layer",
+        "preview": "/designs/hollies/layers/01-background.webp"
+      },
+      {
+        "name": "02-hero-photo.png",
+        "size": 1858948,
+        "kind": "layer",
+        "preview": "/designs/hollies/layers/02-hero-photo.webp"
+      },
+      {
+        "name": "03-scrim.png",
+        "size": 94428,
+        "kind": "layer",
+        "preview": "/designs/hollies/layers/03-scrim.webp"
+      },
+      {
+        "name": "04-dancer-silhouette.png",
+        "size": 60605,
+        "kind": "layer",
+        "preview": "/designs/hollies/layers/04-dancer-silhouette.webp"
+      },
+      {
+        "name": "05-text-stack.png",
+        "size": 134841,
+        "kind": "layer",
+        "preview": "/designs/hollies/layers/05-text-stack.webp"
+      },
+      {
+        "name": "README.md",
+        "size": 2849,
+        "kind": "doc",
+        "preview": null
+      },
+      {
+        "name": "source-dancer-cutout.png",
+        "size": 55920,
+        "kind": "source",
+        "preview": "/designs/hollies/sources/source-dancer-cutout.webp"
+      },
+      {
+        "name": "source-dancer-original.jpg",
+        "size": 87182,
+        "kind": "source",
+        "preview": "/designs/hollies/sources/source-dancer-original.jpg"
+      },
+      {
+        "name": "source-whiskey-photo.jpg",
+        "size": 1494040,
+        "kind": "source",
+        "preview": "/designs/hollies/sources/source-whiskey-photo.jpg"
+      }
+    ]
+  },
+  "zitf-business-conference": {
+    "folder": "02-corporate-event",
+    "files": [
+      {
+        "name": "00-FINAL-zitf-conference.png",
+        "size": 1107676,
+        "kind": "final",
+        "preview": "/designs/zitf-conference.jpg"
+      },
+      {
+        "name": "01-background.png",
+        "size": 207374,
+        "kind": "layer",
+        "preview": "/designs/zitf/layers/01-background.webp"
+      },
+      {
+        "name": "02-hero-photo.png",
+        "size": 736764,
+        "kind": "layer",
+        "preview": "/designs/zitf/layers/02-hero-photo.webp"
+      },
+      {
+        "name": "03-text-upper.png",
+        "size": 106367,
+        "kind": "layer",
+        "preview": "/designs/zitf/layers/03-text-upper.webp"
+      },
+      {
+        "name": "04-text-footer.png",
+        "size": 92516,
+        "kind": "layer",
+        "preview": "/designs/zitf/layers/04-text-footer.webp"
+      },
+      {
+        "name": "05-FINAL-meridian-gala-variant.png",
+        "size": 964853,
+        "kind": "final",
+        "preview": "/designs/meridian-summit.jpg"
+      },
+      {
+        "name": "README.md",
+        "size": 2640,
+        "kind": "doc",
+        "preview": null
+      },
+      {
+        "name": "source-hero-main.jpg",
+        "size": 946013,
+        "kind": "source",
+        "preview": "/designs/zitf/sources/source-hero-main.jpg"
+      },
+      {
+        "name": "source-zim-bird-star.png",
+        "size": 32630,
+        "kind": "source",
+        "preview": "/designs/zitf/sources/source-zim-bird-star.webp"
+      }
+    ]
+  },
+  "the-record-newspaper": {
+    "folder": "03-newspaper",
+    "files": [
+      {
+        "name": "01-front-page.png",
+        "size": 490781,
+        "kind": "final",
+        "preview": "/designs/the-record/front-page.jpg"
+      },
+      {
+        "name": "02-business-page.png",
+        "size": 388112,
+        "kind": "final",
+        "preview": "/designs/the-record/business-page.jpg"
+      },
+      {
+        "name": "03-national-page.png",
+        "size": 387833,
+        "kind": "final",
+        "preview": "/designs/the-record/national-page.jpg"
+      },
+      {
+        "name": "04-arts-page.png",
+        "size": 291175,
+        "kind": "final",
+        "preview": "/designs/the-record/arts-page.jpg"
+      },
+      {
+        "name": "05-opinion-page.png",
+        "size": 141472,
+        "kind": "final",
+        "preview": "/designs/the-record/opinion-page.jpg"
+      },
+      {
+        "name": "06-sport-back-page.png",
+        "size": 640270,
+        "kind": "final",
+        "preview": "/designs/the-record/sport-back-page.jpg"
+      },
+      {
+        "name": "README.md",
+        "size": 2540,
+        "kind": "doc",
+        "preview": null
+      },
+      {
+        "name": "source-concert-dancer.jpg",
+        "size": 87182,
+        "kind": "source",
+        "preview": "/designs/the-record/sources/source-concert-dancer.jpg"
+      },
+      {
+        "name": "source-cricket.jpg",
+        "size": 378056,
+        "kind": "source",
+        "preview": "/designs/the-record/sources/source-cricket.jpg"
+      },
+      {
+        "name": "source-lead-farmers.jpg",
+        "size": 481858,
+        "kind": "source",
+        "preview": "/designs/the-record/sources/source-lead-farmers.jpg"
+      },
+      {
+        "name": "source-maize-field.jpg",
+        "size": 573518,
+        "kind": "source",
+        "preview": "/designs/the-record/sources/source-maize-field.jpg"
+      },
+      {
+        "name": "source-mobile-money.jpg",
+        "size": 309529,
+        "kind": "source",
+        "preview": "/designs/the-record/sources/source-mobile-money.jpg"
+      }
+    ]
+  },
+  "ridgecrest-brand-kit": {
+    "folder": "04-ridgecrest-brand",
+    "files": [
+      {
+        "name": "00-enrolment-poster.png",
+        "size": 247403,
+        "kind": "final",
+        "preview": "/designs/ridgecrest/enrolment-poster.jpg"
+      },
+      {
+        "name": "01-brand-guidelines.png",
+        "size": 594883,
+        "kind": "final",
+        "preview": "/designs/ridgecrest/brand-guidelines.jpg"
+      },
+      {
+        "name": "02-business-card-front.png",
+        "size": 96166,
+        "kind": "final",
+        "preview": "/designs/ridgecrest/business-card-front.jpg"
+      },
+      {
+        "name": "03-business-card-back.png",
+        "size": 73567,
+        "kind": "final",
+        "preview": "/designs/ridgecrest/business-card-back.jpg"
+      },
+      {
+        "name": "04-letterhead.png",
+        "size": 155095,
+        "kind": "final",
+        "preview": "/designs/ridgecrest/letterhead.jpg"
+      },
+      {
+        "name": "05-merit-certificate.png",
+        "size": 189558,
+        "kind": "final",
+        "preview": "/designs/ridgecrest/merit-certificate.jpg"
+      },
+      {
+        "name": "06-profile-picture.png",
+        "size": 99796,
+        "kind": "final",
+        "preview": "/designs/ridgecrest/sources/06-profile-picture.webp"
+      },
+      {
+        "name": "07-facebook-cover.png",
+        "size": 68740,
+        "kind": "final",
+        "preview": "/designs/ridgecrest/facebook-cover.jpg"
+      },
+      {
+        "name": "08-post-announcement.png",
+        "size": 105771,
+        "kind": "final",
+        "preview": "/designs/ridgecrest/post-announcement.jpg"
+      },
+      {
+        "name": "09-post-event.png",
+        "size": 80324,
+        "kind": "final",
+        "preview": "/designs/ridgecrest/post-event.jpg"
+      },
+      {
+        "name": "README.md",
+        "size": 1910,
+        "kind": "doc",
+        "preview": null
+      }
+    ]
+  },
+  "champions-restaurant": {
+    "folder": "05-champions-restaurant",
+    "files": [
+      {
+        "name": "01-sadza-promo-1080x1350.png",
+        "size": 1455062,
+        "kind": "final",
+        "preview": "/designs/champions/sadza-promo.jpg"
+      },
+      {
+        "name": "02-menu-a4.png",
+        "size": 465255,
+        "kind": "final",
+        "preview": "/designs/champions/menu-a4.jpg"
+      },
+      {
+        "name": "README.md",
+        "size": 1792,
+        "kind": "doc",
+        "preview": null
+      },
+      {
+        "name": "source-coke-bottle.png",
+        "size": 1907768,
+        "kind": "source",
+        "preview": "/designs/champions/sources/source-coke-bottle.webp"
+      },
+      {
+        "name": "source-plate-original.jpg",
+        "size": 518532,
+        "kind": "source",
+        "preview": "/designs/champions/sources/source-plate-original.jpg"
+      },
+      {
+        "name": "source-sadza-plate-cutout.png",
+        "size": 1340369,
+        "kind": "source",
+        "preview": "/designs/champions/sources/source-sadza-plate-cutout.webp"
+      }
+    ]
+  },
+  "match-day-poster": {
+    "folder": "06-match-day-poster",
+    "files": [
+      {
+        "name": "00-original-photo.jpg",
+        "size": 683685,
+        "kind": "source",
+        "preview": "/designs/match-day/sources/00-original-photo.jpg"
+      },
+      {
+        "name": "01-background.png",
+        "size": 835589,
+        "kind": "layer",
+        "preview": "/designs/match-day/layers/01-background.webp"
+      },
+      {
+        "name": "02-player-photo-graded.png",
+        "size": 2310721,
+        "kind": "layer",
+        "preview": "/designs/match-day/layers/02-player-photo-graded.webp"
+      },
+      {
+        "name": "03-scrim.png",
+        "size": 114803,
+        "kind": "layer",
+        "preview": "/designs/match-day/layers/03-scrim.webp"
+      },
+      {
+        "name": "04-ghost-type.png",
+        "size": 51962,
+        "kind": "layer",
+        "preview": "/designs/match-day/layers/04-ghost-type.webp"
+      },
+      {
+        "name": "05-top-labels.png",
+        "size": 41723,
+        "kind": "layer",
+        "preview": "/designs/match-day/layers/05-top-labels.webp"
+      },
+      {
+        "name": "06-main-text.png",
+        "size": 157165,
+        "kind": "layer",
+        "preview": "/designs/match-day/layers/06-main-text.webp"
+      },
+      {
+        "name": "README.md",
+        "size": 3314,
+        "kind": "doc",
+        "preview": null
+      }
+    ]
+  },
+  "zim47-independence": {
+    "folder": "08-zim47-poster",
+    "files": [
+      {
+        "name": "README.md",
+        "size": 1210,
+        "kind": "doc",
+        "preview": null
+      },
+      {
+        "name": "flame-medallion.png",
+        "size": 277380,
+        "kind": "source",
+        "preview": null,
+        "note": "Getty/AFP press photo \u2014 portfolio use only, never published"
+      },
+      {
+        "name": "gz-tower-graded.png",
+        "size": 3020907,
+        "kind": "source",
+        "preview": "/designs/zim47/sources/gz-tower-graded.jpg"
+      },
+      {
+        "name": "zim-bird-star.png",
+        "size": 32630,
+        "kind": "source",
+        "preview": "/designs/zim47/sources/zim-bird-star.webp"
+      },
+      {
+        "name": "zim47-independence-1080x1350.png",
+        "size": 2497476,
+        "kind": "final",
+        "preview": "/designs/zim47-independence.jpg"
+      }
+    ]
+  },
+  "meridian-investor-summit": {
+    "folder": "02-corporate-event",
+    "files": [
+      {
+        "name": "00-FINAL-zitf-conference.png",
+        "size": 1107676,
+        "kind": "final",
+        "preview": "/designs/zitf-conference.jpg"
+      },
+      {
+        "name": "01-background.png",
+        "size": 207374,
+        "kind": "layer",
+        "preview": "/designs/zitf/layers/01-background.webp"
+      },
+      {
+        "name": "02-hero-photo.png",
+        "size": 736764,
+        "kind": "layer",
+        "preview": "/designs/zitf/layers/02-hero-photo.webp"
+      },
+      {
+        "name": "03-text-upper.png",
+        "size": 106367,
+        "kind": "layer",
+        "preview": "/designs/zitf/layers/03-text-upper.webp"
+      },
+      {
+        "name": "04-text-footer.png",
+        "size": 92516,
+        "kind": "layer",
+        "preview": "/designs/zitf/layers/04-text-footer.webp"
+      },
+      {
+        "name": "05-FINAL-meridian-gala-variant.png",
+        "size": 964853,
+        "kind": "final",
+        "preview": "/designs/meridian-summit.jpg"
+      },
+      {
+        "name": "README.md",
+        "size": 2640,
+        "kind": "doc",
+        "preview": null
+      },
+      {
+        "name": "source-hero-main.jpg",
+        "size": 946013,
+        "kind": "source",
+        "preview": "/designs/zitf/sources/source-hero-main.jpg"
+      },
+      {
+        "name": "source-zim-bird-star.png",
+        "size": 32630,
+        "kind": "source",
+        "preview": "/designs/zitf/sources/source-zim-bird-star.webp"
+      }
+    ]
+  }
+}

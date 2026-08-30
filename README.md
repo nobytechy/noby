@@ -99,7 +99,19 @@ src/
 supabase/schema.sql    run once in the Supabase SQL editor
 netlify/               serverless functions
 public/                .htaccess, robots.txt, sitemap.xml, PWA assets
+public/designs/        design covers (900px JPG) + per-project layers/sources
 ```
+
+## Designs (graphic-design case studies)
+
+`/designs` and `/designs/:slug` are static — no database. To add a piece:
+
+1. Web-size the cover to `public/designs/<slug>.jpg` (4:5, 900px wide, ~q85).
+   Extra pieces, layers (alpha WebP, 720×900) and sources go in `public/designs/<folder>/`.
+2. Add an entry to `src/data/fallbackDesigns.js` — card fields plus the case study
+   (`concept`, `palette`, `type`, `build.steps`, `rules`, `credits`). `build.mode` is
+   `stack` when the steps are transparent layers, `sequence` when each step replaces the frame.
+3. Optionally add its file tree to `src/data/designFiles.json` (name, size in bytes, kind, preview).
 
 ---
 

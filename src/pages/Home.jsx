@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ArrowRight, Code2, Rocket, Layers, CheckCircle2, Globe, Wrench, Smartphone } from 'lucide-react'
+import { ArrowRight, Code2, Rocket, Layers, CheckCircle2, Globe, Smartphone } from 'lucide-react'
 import SEO from '@/components/SEO'
 import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
@@ -11,8 +11,9 @@ import AnimatedBlobs from '@/components/AnimatedBlobs'
 import ClientLogos from '@/components/ClientLogos'
 import ProductsBanner from '@/components/ProductsBanner'
 import FeaturedProjectsCarousel from '@/components/FeaturedProjectsCarousel'
+import DesignsCarousel from '@/components/DesignsCarousel'
 import SdlcOrbit from '@/components/SdlcOrbit'
-import { getProfile, listProjects, listServices, listTestimonials, listProducts } from '@/lib/queries'
+import { getProfile, listServices, listTestimonials, listProducts } from '@/lib/queries'
 
 const stats = [
   { value: '7+', label: 'Years experience' },
@@ -34,7 +35,6 @@ const stagger = {
 
 export default function Home() {
   const [profile, setProfile] = useState(null)
-  const [featured, setFeatured] = useState([])
   const [services, setServices] = useState([])
   const [testimonials, setTestimonials] = useState([])
   const [featuredProducts, setFeaturedProducts] = useState([])
@@ -42,12 +42,11 @@ export default function Home() {
   useEffect(() => {
     Promise.all([
       getProfile().catch(() => null),
-      listProjects({ featuredOnly: true }).catch(() => []),
       listServices().catch(() => []),
       listTestimonials().catch(() => []),
       listProducts({ featuredOnly: true }).catch(() => []),
-    ]).then(([p, fp, sv, tt, fpd]) => {
-      setProfile(p); setFeatured(fp.slice(0, 3)); setServices(sv); setTestimonials(tt.slice(0, 3))
+    ]).then(([p, sv, tt, fpd]) => {
+      setProfile(p); setServices(sv); setTestimonials(tt.slice(0, 3))
       setFeaturedProducts(fpd.slice(0, 3))
     })
   }, [])
@@ -227,35 +226,7 @@ export default function Home() {
             All designs <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          {[
-            ['/designs/zim47-independence.jpg', 'Zim@47 Independence Day poster'],
-            ['/designs/ridgecrest-poster.jpg', 'Ridgecrest Junior School brand kit'],
-            ['/designs/hollies-jameson.jpg', 'Hollies nightclub promo flyer'],
-            ['/designs/newspaper-front.jpg', 'The Record newspaper front page'],
-          ].map(([src, alt], i) => (
-            <motion.div
-              key={src}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.06 }}
-            >
-              <Link to="/designs" className="group block">
-                <Card className="overflow-hidden hover:border-primary/50 transition-colors">
-                  <div className="aspect-[4/5] bg-muted overflow-hidden">
-                    <img src={src} alt={alt} loading="lazy" decoding="async" className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
-                  </div>
-                </Card>
-              </Link>
-            </motion.div>
-          ))}
-        </div>
-        <div className="mt-6 md:hidden">
-          <Link to="/designs" className="text-sm text-primary inline-flex items-center gap-1">
-            All designs <ArrowRight size={14} />
-          </Link>
-        </div>
+        <DesignsCarousel />
       </section>
 
       {/* Featured products */}
