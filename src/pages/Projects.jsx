@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Code2, ExternalLink } from 'lucide-react'
+import { Code2, ExternalLink, ChevronDown } from 'lucide-react'
 import { GithubIcon } from '@/components/BrandIcons'
 import SEO from '@/components/SEO'
 import PageHero from '@/components/PageHero'
@@ -9,6 +9,8 @@ import { Card, CardContent } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
 import { listProjects } from '@/lib/queries'
 import { FALLBACK_PROJECTS } from '@/data/fallbackProjects'
+
+const TAGS_BEFORE_MORE = 7 // 'all' + 6 tags — one comfortable row on a phone
 
 export default function Projects() {
   const [dbProjects, setDbProjects] = useState(null) // null = still loading
@@ -38,16 +40,31 @@ export default function Projects() {
     return [...builtIn, ...added]
   }, [dbProjects])
 
+  // Ranked by how many projects carry the tag (then alphabetically), so the
+  // filters that actually narrow the grid sit in the visible row.
   const tags = useMemo(() => {
-    const set = new Set()
-    projects.forEach(p => (p.tags || []).forEach(t => set.add(t)))
-    return ['all', ...Array.from(set)]
+    const counts = new Map()
+    projects.forEach(p => (p.tags || []).forEach(t => counts.set(t, (counts.get(t) || 0) + 1)))
+    const ranked = [...counts.entries()]
+      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+      .map(([t]) => t)
+    return ['all', ...ranked]
   }, [projects])
 
   // A chip can outlive its tag once DB rows land — fall back to 'all' rather
   // than showing an empty grid for a filter that no longer exists.
   const active = tags.includes(filter) ? filter : 'all'
   const visible = active === 'all' ? projects : projects.filter(p => (p.tags || []).includes(active))
+
+  // Eighteen chips is a wall, so only the top few show until asked. The
+  // selected tag is always in the row, even when it ranks below the cut.
+  const [showAllTags, setShowAllTags] = useState(false)
+  const shownTags = useMemo(() => {
+    if (showAllTags) return tags
+    const head = tags.slice(0, TAGS_BEFORE_MORE)
+    return head.includes(active) ? head : [...head, active]
+  }, [tags, showAllTags, active])
+  const hiddenCount = tags.length - shownTags.length
 
   return (
     <>
@@ -62,7 +79,7 @@ export default function Projects() {
       <section className="container-x py-16 md:py-24">
         {tags.length > 1 && (
           <div className="mt-8 flex flex-wrap gap-2">
-            {tags.map(t => (
+            {shownTags.map(t => (
               <button
                 key={t}
                 onClick={() => setFilter(t)}
@@ -75,6 +92,18 @@ export default function Projects() {
                 {t}
               </button>
             ))}
+
+            {(hiddenCount > 0 || showAllTags) && (
+              <button
+                type="button"
+                onClick={() => setShowAllTags(v => !v)}
+                aria-expanded={showAllTags}
+                className="inline-flex items-center gap-1 rounded-full border border-dashed border-border px-3 py-1 text-xs font-medium text-muted-foreground transition-colors hover:border-primary/50 hover:text-primary"
+              >
+                {showAllTags ? 'Fewer filters' : `${hiddenCount} more`}
+                <ChevronDown size={13} className={'transition-transform ' + (showAllTags ? 'rotate-180' : '')} />
+              </button>
+            )}
           </div>
         )}
 
