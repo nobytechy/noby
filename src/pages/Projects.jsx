@@ -11,14 +11,32 @@ import { listProjects } from '@/lib/queries'
 import { FALLBACK_PROJECTS } from '@/data/fallbackProjects'
 
 export default function Projects() {
-  const [projects, setProjects] = useState([])
+  const [dbProjects, setDbProjects] = useState(null) // null = still loading
   const [filter, setFilter] = useState('all')
 
   useEffect(() => {
     listProjects()
-      .then((rows) => setProjects(rows && rows.length ? rows : FALLBACK_PROJECTS))
-      .catch(() => setProjects(FALLBACK_PROJECTS))
+      .then(rows => setDbProjects(rows ?? []))
+      .catch(() => setDbProjects([]))
   }, [])
+
+  /**
+   * The hardcoded catalogue is the portfolio; the database is additive.
+   *
+   * The built-in projects always show, in their curated order, so the page
+   * is never empty and never depends on Supabase being reachable. Anything
+   * posted through the admin panel is appended below them. A DB row sharing
+   * a slug with a built-in project is treated as an edit of it — it takes
+   * that project's place rather than appearing twice.
+   */
+  const projects = useMemo(() => {
+    const rows = dbProjects || []
+    const edits = new Map(rows.map(r => [r.slug, r]))
+    const builtInSlugs = new Set(FALLBACK_PROJECTS.map(p => p.slug))
+    const builtIn = FALLBACK_PROJECTS.map(p => edits.get(p.slug) || p)
+    const added = rows.filter(r => !builtInSlugs.has(r.slug))
+    return [...builtIn, ...added]
+  }, [dbProjects])
 
   const tags = useMemo(() => {
     const set = new Set()
@@ -26,7 +44,10 @@ export default function Projects() {
     return ['all', ...Array.from(set)]
   }, [projects])
 
-  const visible = filter === 'all' ? projects : projects.filter(p => (p.tags || []).includes(filter))
+  // A chip can outlive its tag once DB rows land — fall back to 'all' rather
+  // than showing an empty grid for a filter that no longer exists.
+  const active = tags.includes(filter) ? filter : 'all'
+  const visible = active === 'all' ? projects : projects.filter(p => (p.tags || []).includes(active))
 
   return (
     <>
@@ -47,8 +68,9 @@ export default function Projects() {
                 onClick={() => setFilter(t)}
                 className={
                   'inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium transition-colors ' +
-                  (filter === t ? 'border-primary bg-primary text-primary-foreground' : 'border-border text-muted-foreground hover:bg-secondary')
+                  (active === t ? 'border-primary bg-primary text-primary-foreground' : 'border-border text-muted-foreground hover:bg-secondary')
                 }
+                aria-pressed={active === t}
               >
                 {t}
               </button>
@@ -59,7 +81,7 @@ export default function Projects() {
         <div className="mt-10 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {visible.length === 0 ? (
             <div className="col-span-full rounded-lg border border-dashed border-border p-12 text-center text-muted-foreground">
-              No projects match this filter.
+              {active === 'all' ? 'No projects to show yet.' : `No projects tagged “${active}”.`}
             </div>
           ) : visible.map((p, i) => (
             <motion.div
