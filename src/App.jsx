@@ -5,6 +5,7 @@ import About from '@/pages/About'
 import Services from '@/pages/Services'
 import Projects from '@/pages/Projects'
 import ProjectDetail from '@/pages/ProjectDetail'
+import Designs from '@/pages/Designs'
 import Contact from '@/pages/Contact'
 import Process from '@/pages/Process'
 import FAQ from '@/pages/FAQ'
@@ -41,6 +42,7 @@ export default function App() {
         <Route path="services" element={<Services />} />
         <Route path="projects" element={<Projects />} />
         <Route path="projects/:slug" element={<ProjectDetail />} />
+        <Route path="designs" element={<Designs />} />
         <Route path="products" element={<Products />} />
         <Route path="products/:slug" element={<ProductDetail />} />
         <Route path="process" element={<Process />} />

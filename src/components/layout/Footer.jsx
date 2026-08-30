@@ -49,7 +49,7 @@ export default function Footer() {
           <div>
             <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground mb-4">Site</div>
             <ul className="space-y-2.5 text-sm">
-              {[['/services', 'Services'], ['/products', 'Products'], ['/projects', 'Projects'], ['/process', 'Process'], ['/about', 'About'], ['/faq', 'FAQ'], ['/contact', 'Contact']].map(([to, label]) => (
+              {[['/services', 'Services'], ['/products', 'Products'], ['/projects', 'Projects'], ['/designs', 'Designs'], ['/process', 'Process'], ['/about', 'About'], ['/faq', 'FAQ'], ['/contact', 'Contact']].map(([to, label]) => (
                 <li key={to}><Link to={to} className="text-muted-foreground hover:text-foreground transition-colors">{label}</Link></li>
               ))}
             </ul>

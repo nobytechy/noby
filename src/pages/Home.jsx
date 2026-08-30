@@ -215,6 +215,49 @@ export default function Home() {
         <FeaturedProjectsCarousel />
       </section>
 
+      {/* Graphic design highlight */}
+      <section className="container-x py-20">
+        <div className="flex items-end justify-between mb-10">
+          <div>
+            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">Beyond code</div>
+            <h2 className="text-3xl md:text-5xl font-bold mt-1">Graphic design work</h2>
+            <p className="mt-2 text-muted-foreground max-w-xl">Posters, flyers, brand kits and print editorial — the same end-to-end care, applied to visual identity.</p>
+          </div>
+          <Link to="/designs" className="text-sm text-muted-foreground hover:text-primary hidden md:inline-flex items-center gap-1 group">
+            All designs <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
+          </Link>
+        </div>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {[
+            ['/designs/zim47-independence.jpg', 'Zim@47 Independence Day poster'],
+            ['/designs/ridgecrest-poster.jpg', 'Ridgecrest Junior School brand kit'],
+            ['/designs/hollies-jameson.jpg', 'Hollies nightclub promo flyer'],
+            ['/designs/newspaper-front.jpg', 'The Record newspaper front page'],
+          ].map(([src, alt], i) => (
+            <motion.div
+              key={src}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.06 }}
+            >
+              <Link to="/designs" className="group block">
+                <Card className="overflow-hidden hover:border-primary/50 transition-colors">
+                  <div className="aspect-[4/5] bg-muted overflow-hidden">
+                    <img src={src} alt={alt} loading="lazy" decoding="async" className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
+                  </div>
+                </Card>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+        <div className="mt-6 md:hidden">
+          <Link to="/designs" className="text-sm text-primary inline-flex items-center gap-1">
+            All designs <ArrowRight size={14} />
+          </Link>
+        </div>
+      </section>
+
       {/* Featured products */}
       {featuredProducts.length > 0 && (
         <section className="container-x py-20">
