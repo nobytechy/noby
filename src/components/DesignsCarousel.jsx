@@ -5,10 +5,14 @@ import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import { FALLBACK_DESIGNS } from '@/data/fallbackDesigns'
 
 /**
- * Poster carousel for the landing page — the design counterpart of
- * FeaturedProjectsCarousel. Centre artwork at full stage height with the
- * previous / next pieces peeking at reduced opacity on md+; single artwork
- * with swipe on mobile. Auto-advances every 5s; pauses on hover.
+ * Poster carousel for the landing page. Design work is portrait artwork
+ * meant to be looked at one piece at a time, so it gets the stage; the
+ * projects section above uses a static grid of screenshots instead, which
+ * keeps the two sections from reading as the same component twice.
+ *
+ * Centre artwork at full stage height with the previous / next pieces
+ * peeking at reduced opacity on md+; single artwork with swipe on mobile.
+ * Auto-advances every 5s; pauses on hover.
  */
 const ITEMS = FALLBACK_DESIGNS
 const PEEK_GAP = 232 // half the active width (208) + 24px gap, at the md+ stage height

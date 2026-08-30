@@ -10,16 +10,16 @@ import RotatingWords from '@/components/RotatingWords'
 import AnimatedBlobs from '@/components/AnimatedBlobs'
 import ClientLogos from '@/components/ClientLogos'
 import ProductsBanner from '@/components/ProductsBanner'
-import FeaturedProjectsCarousel from '@/components/FeaturedProjectsCarousel'
+import FeaturedProjects from '@/components/FeaturedProjects'
 import DesignsCarousel from '@/components/DesignsCarousel'
 import SdlcOrbit from '@/components/SdlcOrbit'
 import { getProfile, listServices, listTestimonials, listProducts } from '@/lib/queries'
 
 const stats = [
-  { value: '7+', label: 'Years experience' },
-  { value: '12+', label: 'Projects shipped' },
-  { value: '30+', label: 'Branches served' },
-  { value: '24h', label: 'Response time' },
+  { value: '7+', label: 'Years shipping production software' },
+  { value: '11', label: 'Payment gateways integrated' },
+  { value: '219', label: 'Automated tests running in production' },
+  { value: '90%', label: 'Stock loss cut for a client' },
 ]
 
 const serviceIcons = { web: Globe, mobile: Smartphone, fullstack: Layers, default: Code2 }
@@ -112,20 +112,6 @@ export default function Home() {
                 </span>
               ))}
             </motion.div>
-
-            <motion.div variants={fadeUp} className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl">
-              {[
-                ['7+ yrs', 'production software'],
-                ['11', 'gateways on ManishaPay'],
-                ['219', 'automated tests live'],
-                ['90%', 'stock-loss cut for a client'],
-              ].map(([v, l]) => (
-                <div key={l} className="rounded-xl border border-border bg-card/60 px-4 py-3">
-                  <div className="text-xl font-bold text-primary">{v}</div>
-                  <div className="mt-0.5 text-xs text-muted-foreground leading-snug">{l}</div>
-                </div>
-              ))}
-            </motion.div>
           </motion.div>
 
           <motion.div
@@ -152,7 +138,7 @@ export default function Home() {
               className="bg-card p-6 md:p-8 text-center"
             >
               <div className="text-3xl md:text-5xl font-bold gradient-text">{s.value}</div>
-              <div className="mt-1 text-xs md:text-sm text-muted-foreground">{s.label}</div>
+              <div className="mx-auto mt-1.5 max-w-[18ch] text-xs md:text-sm leading-snug text-muted-foreground">{s.label}</div>
             </motion.div>
           ))}
         </div>
@@ -205,13 +191,13 @@ export default function Home() {
           <div>
             <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">Selected work</div>
             <h2 className="text-3xl md:text-5xl font-bold mt-1">Featured projects</h2>
-            <p className="mt-2 text-muted-foreground max-w-xl">Three production apps shipped recently — each tackling a real-world Zimbabwean workflow end-to-end.</p>
+            <p className="mt-2 text-muted-foreground max-w-xl">Three production apps, shipped and live — each tackling a real-world Zimbabwean workflow end-to-end.</p>
           </div>
           <Link to="/projects" className="text-sm text-muted-foreground hover:text-primary hidden md:inline-flex items-center gap-1 group">
             All projects <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
-        <FeaturedProjectsCarousel />
+        <FeaturedProjects />
       </section>
 
       {/* Graphic design highlight */}
