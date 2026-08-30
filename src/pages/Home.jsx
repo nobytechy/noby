@@ -147,44 +147,6 @@ export default function Home() {
       {/* Client logos / trust strip */}
       <ClientLogos />
 
-      {/* Services */}
-      {services.length > 0 && (
-        <section className="container-x py-20">
-          <div className="flex items-end justify-between mb-10">
-            <div>
-              <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">What I do</div>
-              <h2 className="text-3xl md:text-5xl font-bold mt-1">Services I offer</h2>
-            </div>
-            <Link to="/services" className="text-sm text-muted-foreground hover:text-primary hidden md:inline-flex items-center gap-1 group">
-              All services <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
-            </Link>
-          </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {services.slice(0, 3).map((s, i) => {
-              const Icon = serviceIcons[s.icon] || serviceIcons.default
-              return (
-                <motion.div
-                  key={s.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.06 }}
-                >
-                  <Card className="h-full group hover:border-primary/50 hover:-translate-y-1 transition-all duration-300 shine">
-                    <CardContent className="p-6">
-                      <div className="size-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                        <Icon size={20} />
-                      </div>
-                      <h3 className="text-lg font-semibold">{s.title}</h3>
-                      <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{s.description}</p>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              )
-            })}
-          </div>
-        </section>
-      )}
-
       {/* Featured projects */}
       <section className="container-x py-20">
         <div className="flex items-end justify-between mb-10">
@@ -221,7 +183,7 @@ export default function Home() {
           <div className="flex items-end justify-between mb-10">
             <div>
               <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">Ready to ship</div>
-              <h2 className="text-3xl md:text-5xl font-bold mt-1">Pre-built systems for sale</h2>
+              <h2 className="text-2xl md:text-4xl font-bold mt-1">Pre-built systems for sale</h2>
               <p className="mt-2 text-muted-foreground max-w-xl">Skip the build. Buy a tested system, deploy in days, own the source forever.</p>
             </div>
             <Link to="/products" className="text-sm text-muted-foreground hover:text-primary hidden md:inline-flex items-center gap-1 group">
@@ -278,7 +240,7 @@ export default function Home() {
         <section className="container-x py-20">
           <div className="text-center mb-12">
             <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">Client words</div>
-            <h2 className="text-3xl md:text-5xl font-bold mt-1">What clients say</h2>
+            <h2 className="text-2xl md:text-4xl font-bold mt-1">What clients say</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {testimonials.map((t, i) => (
@@ -307,6 +269,41 @@ export default function Home() {
                 </Card>
               </motion.div>
             ))}
+          </div>
+        </section>
+      )}
+
+      {/* Services — deliberately compact: the full detail lives on /services,
+          and it sits here as the lead-in to the CTA rather than ahead of the work */}
+      {services.length > 0 && (
+        <section className="container-x py-16">
+          <div className="rounded-2xl border border-border bg-card/50 p-6 md:p-8">
+            <div className="flex flex-wrap items-end justify-between gap-3">
+              <div>
+                <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">What I do</div>
+                <h2 className="mt-1 text-xl md:text-2xl font-bold">Services I offer</h2>
+              </div>
+              <Link to="/services" className="group inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-primary">
+                Services &amp; pricing <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
+              </Link>
+            </div>
+
+            <div className="mt-6 grid gap-x-6 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
+              {services.slice(0, 3).map(sv => {
+                const Icon = serviceIcons[sv.icon] || serviceIcons.default
+                return (
+                  <div key={sv.id} className="flex gap-3">
+                    <div className="mt-0.5 grid size-9 shrink-0 place-items-center rounded-lg bg-primary/10 text-primary">
+                      <Icon size={17} />
+                    </div>
+                    <div className="min-w-0">
+                      <h3 className="text-sm font-semibold">{sv.title}</h3>
+                      <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-muted-foreground">{sv.description}</p>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
           </div>
         </section>
       )}

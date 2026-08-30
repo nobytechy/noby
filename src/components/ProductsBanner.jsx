@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Package, ArrowRight, Wrench, CheckCircle2 } from 'lucide-react'
 
 const SESSION_KEY = 'noby:products-banner-dismissed'
-const SHOW_AFTER_MS = 5500
+const MIN_DWELL_MS = 15000   // never interrupt someone still reading the hero
+const SCROLL_TRIGGER = 0.65  // ...and only once they've read past the work sections
 
 const bullets = [
   'Full source code, yours forever',
@@ -12,14 +13,48 @@ const bullets = [
   'Deploy in days, not months',
 ]
 
+/**
+ * Ready-made-systems offer.
+ *
+ * Triggered by engagement, not a timer: it waits until the visitor has both
+ * spent a minimum dwell time on the page and scrolled past the work sections.
+ * A hiring manager reading the hero is never interrupted; someone who has
+ * scrolled the whole page is far likelier to actually be shopping. Dismissal
+ * is remembered for the session.
+ */
 export default function ProductsBanner() {
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
     if (typeof window === 'undefined') return
     if (sessionStorage.getItem(SESSION_KEY) === '1') return
-    const t = setTimeout(() => setOpen(true), SHOW_AFTER_MS)
-    return () => clearTimeout(t)
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return
+
+    const readyAt = Date.now() + MIN_DWELL_MS
+    let done = false
+
+    const onScroll = () => {
+      if (done || Date.now() < readyAt) return
+      const doc = document.documentElement
+      const scrollable = doc.scrollHeight - window.innerHeight
+      const progress = scrollable > 0 ? window.scrollY / scrollable : 1
+      if (progress < SCROLL_TRIGGER) return
+      done = true
+      window.removeEventListener('scroll', onScroll)
+      setOpen(true)
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  const dismiss = useCallback(() => {
+    try {
+      sessionStorage.setItem(SESSION_KEY, '1')
+    } catch {
+      // private mode / storage disabled — the banner just reappears next visit
+    }
+    setOpen(false)
   }, [])
 
   // Lock background scroll while open
@@ -33,12 +68,7 @@ export default function ProductsBanner() {
       document.body.style.overflow = prev
       window.removeEventListener('keydown', onKey)
     }
-  }, [open])
-
-  const dismiss = () => {
-    try { sessionStorage.setItem(SESSION_KEY, '1') } catch {}
-    setOpen(false)
-  }
+  }, [open, dismiss])
 
   return (
     <AnimatePresence>

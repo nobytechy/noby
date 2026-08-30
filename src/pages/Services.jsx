@@ -6,6 +6,7 @@ import SEO from '@/components/SEO'
 import PageHero from '@/components/PageHero'
 import { Card, CardContent } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
+import ProductsBanner from '@/components/ProductsBanner'
 import { listServices } from '@/lib/queries'
 
 const icons = { web: Globe, mobile: Smartphone, fullstack: Code2, integration: Wrench, ai: Cpu, default: Layers }
@@ -27,6 +28,7 @@ export default function Services() {
   return (
     <>
       <SEO title="Services" path="/services" description="Web, mobile, and payment integration services for direct clients. Starting prices listed." />
+      <ProductsBanner />
 
       <PageHero
         eyebrow="What I offer"
