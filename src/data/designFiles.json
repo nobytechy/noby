@@ -347,13 +347,13 @@
       },
       {
         "name": "05-top-labels.png",
-        "size": 41723,
+        "size": 10518,
         "kind": "layer",
         "preview": "/designs/match-day/layers/05-top-labels.webp"
       },
       {
         "name": "06-main-text.png",
-        "size": 157165,
+        "size": 111048,
         "kind": "layer",
         "preview": "/designs/match-day/layers/06-main-text.webp"
       },
@@ -375,11 +375,11 @@
         "preview": null
       },
       {
-        "name": "flame-medallion.png",
-        "size": 277380,
+        "name": "flame-emblem.png",
+        "size": 11671,
         "kind": "source",
-        "preview": null,
-        "note": "Getty/AFP press photo \u2014 portfolio use only, never published"
+        "preview": "/designs/zim47/sources/flame-emblem.webp",
+        "note": "drawn for this poster"
       },
       {
         "name": "gz-tower-graded.png",

@@ -126,6 +126,7 @@ export const FALLBACK_DESIGNS = [
       steps: [
         { src: '/designs/zim47/sources/gz-tower-graded.jpg', label: 'Grade the tower', note: 'Fanny Schertzer\u2019s CC BY 3.0 photo of the conical tower: desaturate 65% \u2192 #4e6152 multiply \u2192 gold soft-light from top-left \u2192 deepen 28%. The photo now belongs to the palette.' },
         { src: '/designs/zim47/sources/zim-bird-star.webp', label: 'Extract the emblem', note: 'The bird and star lifted from the public-domain flag \u2014 used as a 14% watermark, not a logo.' },
+        { src: '/designs/zim47/sources/flame-emblem.webp', label: 'Draw the flame', note: 'The first version used a press photo of the Independence Flame. A photo I can\u2019t licence can\u2019t ship, so the medallion was redrawn from scratch in the poster\u2019s own gold \u2014 flat, iconographic, and mine to use.' },
         { src: '/designs/zim47-independence.jpg', label: 'Type and facts', note: 'Mirrored 12 px flag stripe band at the top, ZIM@47 in Anton, Uhuru \u2022 Inkululeko \u2022 Rusununguko, and the bordered strip with the real 2027 flame route.' },
       ],
     },
@@ -133,11 +134,12 @@ export const FALLBACK_DESIGNS = [
       'Ration national colours: each colour gets one job or the poster turns into bunting.',
       'Specific facts beat generic slogans \u2014 Gonakudzingwa \u2192 Jenya \u2192 Rutenga is the story.',
       'Trilingual by default: Shona, Ndebele, English.',
+      'If an image can\u2019t be licensed for the client\u2019s actual use, it doesn\u2019t go in the artwork \u2014 redraw it.',
     ],
     credits: [
       'Great Zimbabwe tower \u2014 Fanny Schertzer, CC BY 3.0 (graded)',
       'Bird emblem \u2014 extracted from the public-domain flag',
-      'Flame medallion \u2014 Getty/AFP press photo, portfolio use only',
+      'Flame emblem \u2014 original artwork drawn for this poster',
       'Fonts \u2014 Google Fonts, free for commercial use',
     ],
     files: files['zim47-independence'],
@@ -447,6 +449,7 @@ export const FALLBACK_DESIGNS = [
       'Main stack bottom-anchored, 72 px from the bottom, centred.',
       'Hierarchy: headline about 3\u00d7 the team line. Squint \u2014 DERBY DAY must read first.',
       'Works on Facebook feed (4:5 is the max portrait ratio) and Instagram portrait.',
+      'Layers stay in sync with the final \u2014 a kit that rebuilds to an older version is a kit that ships the wrong date.',
     ],
     credits: [
       'Photo \u2014 Dominic Nelson, Wikimedia Commons, CC BY-SA 4.0',
