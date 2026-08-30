@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin
 Disallow: /admin/
 
-Sitemap: https://noby.aizim.co.zw/sitemap.xml
+Sitemap: https://nobie.netlify.app/sitemap.xml

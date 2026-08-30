@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://noby.aizim.co.zw/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://noby.aizim.co.zw/services</loc><changefreq>monthly</changefreq><priority>0.95</priority></url>
-  <url><loc>https://noby.aizim.co.zw/products</loc><changefreq>weekly</changefreq><priority>0.95</priority></url>
-  <url><loc>https://noby.aizim.co.zw/projects</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://noby.aizim.co.zw/designs</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://noby.aizim.co.zw/process</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://noby.aizim.co.zw/about</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://noby.aizim.co.zw/faq</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://noby.aizim.co.zw/contact</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://nobie.netlify.app/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://nobie.netlify.app/services</loc><changefreq>monthly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://nobie.netlify.app/products</loc><changefreq>weekly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://nobie.netlify.app/projects</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://nobie.netlify.app/designs</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://nobie.netlify.app/process</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://nobie.netlify.app/about</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://nobie.netlify.app/faq</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://nobie.netlify.app/contact</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
 </urlset>
